@@ -1,0 +1,186 @@
+:host {
+  display: block;
+  background-color: #f5f7fa; /* fondo claro */
+  min-height: 100vh;
+  padding-bottom: 32px;
+}
+
+/* O con imagen */
+:host {
+  display: block;
+  min-height: 100vh;
+  background-image: url("/assets/background-ranking.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.user-ranking-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  padding: 32px 0px;
+}
+.ranking-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.top-ranking-table {
+  padding: 0 50px;
+}
+
+.user-info {
+  width: 20%;
+  text-align: center;
+  padding: 20px;
+  background: rgb(255, 255, 255, 0.46);
+  border-radius: 34px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-info h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.rank-box {
+  font-size: 36px;
+  font-weight: bold;
+  color: #000000;
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.ranking-selector {
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+mat-button-toggle-group {
+  width: 100%;
+  max-width: 400px; /* Ajustá este valor según el diseño deseado */
+  display: flex;
+  justify-content: space-around;
+  background: none;
+  box-shadow: none;
+  border: none;
+  border-radius: 0px;
+}
+
+mat-button-toggle {
+  background: none !important;
+  border: none !important;
+  font-weight: 500;
+  padding: 8px 16px;
+  font-size: 16px;
+  color: #333;
+  position: relative;
+  transition: color 0.3s ease;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+mat-button-toggle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  height: 2px;
+  width: 100%;
+  background-color: transparent;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+mat-button-toggle.mat-button-toggle-checked::after {
+  background-color: #49a04a;
+  transform: scaleX(1);
+}
+
+mat-button-toggle:hover::after {
+  background-color: #16d019;
+  transform: scaleX(1);
+}
+
+mat-button-toggle .mat-button-toggle-label-content {
+  padding-left: 0;
+}
+
+.ranking-table-container {
+  width: 50%;
+  padding: 50px 0;
+  background-color: #ffffff;
+  border-radius: 34px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mat-mdc-header-cell {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  border-color: #E4E4E4;
+  border-width: 5px;
+  padding-bottom: 15px;
+}
+
+
+.mat-column-rank {
+  width: 15%;
+  text-align: center;
+}
+
+.mat-column-lessons {
+  width: 20%;
+  text-align: center;
+}
+
+.mat-mdc-cell {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 18px;
+  color: #333;
+  font-weight: 500;
+  border-color: #E4E4E4;
+  border-width: 2px;
+  padding: 25px 0;
+}
+
+.top-rank{
+  font-size: 30px;
+}
+
+
+.mat-mdc-table {
+  background-color: #ffffff;
+}
+
+.user-row {
+  background-color: rgba(255, 126, 14, 0.624); /* Sutil fondo naranja */
+}
+
+.rank-cell{
+  border-bottom-left-radius: 36px;
+  border-top-left-radius: 36px;
+  padding-left: 50px;
+}
+
+.lessons-cell{
+  border-bottom-right-radius: 36px;
+  border-top-right-radius: 36px;
+}
+
+.user-highlight-row td {
+  font-weight: 600;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 18px;
+  color: #333;
+  padding: 25px 0;
+}
+
+.rank-cell-header{
+  background-color: rgba(255, 126, 14, 0.624);
+}

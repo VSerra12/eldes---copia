@@ -1,0 +1,54 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-flag {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 65px;
+  margin-right: 5px;
+  padding-top: 5px;
+}
+
+.flag {
+  width: 30px;
+  border-radius: 3px;
+}
+
+.logos-utn-sla {
+  padding-top: 5px;
+}
+
+.logo-sla,
+.logo-utn {
+  height: 40px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.navs {
+  border-bottom: 2px solid transparent;
+  margin: 0 10px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 22px;
+  text-decoration: none;
+  cursor: pointer;
+  color: #009dff;
+}
+
+.nav-active {
+  border-bottom: 2px solid #49a04a !important;
+}

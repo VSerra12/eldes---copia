@@ -1,0 +1,64 @@
+<nav>
+    <div class="navbar">
+        <div class="logo-flag">
+            <a routerLink="/">
+                <img src="assets/logo-eldes.png" alt="Logo" class="logo" />
+            </a>
+            <img src="assets/flag-arg.png"
+                alt="Argentina" class="flag ng-star-inserted" />
+        </div>
+        <div class="logos-utn-sla">
+            <img src="assets/logo-lsa.png"
+                alt="Señas de comunicación. Interpretación y capacitación en LSA"
+                class="logo-sla ng-star-inserted" />
+            <img src="assets/logo-utn.png" alt="UTN.BA"
+                class="logo-utn ng-star-inserted" />
+        </div>
+        <div class="nav-links">
+            <a routerLink="/home" class="navs" routerLinkActive="nav-active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+            <a routerLink="/ranking" class="navs" routerLinkActive="nav-active">Ranking</a>
+            <!-- Botón de configuración -->
+            <button mat-icon-button
+                [matMenuTriggerFor]="menuConfiguracion" class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base">
+                <mat-icon>settings</mat-icon>
+            </button>
+
+            <!-- Menú con slide toggle -->
+            <mat-menu #menuConfiguracion="matMenu"
+                class="menu-con-switch">
+                <div
+                    style="padding: 0 16px; display: flex; align-items: center;">
+                    <mat-slide-toggle [(ngModel)]="ayudaInteligente"
+                        (change)="onToggleAyuda()">
+                        Ayuda inteligente
+                    </mat-slide-toggle>
+                </div>
+            </mat-menu>
+
+            <!-- Icono que abre el menú -->
+            <button mat-icon-button [matMenuTriggerFor]="menuUsuario" class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base">
+                <mat-icon>person_outline</mat-icon>
+            </button>
+            <!-- Menú desplegable -->
+            <mat-menu #menuUsuario="matMenu">
+                <button mat-menu-item [routerLink]="'/certificates'" routerLinkActive="nav-active">
+                    <mat-icon>school</mat-icon>
+                    <span>Mis certificados</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>account_circle</mat-icon>
+                    <span>Mi cuenta</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>help_outline</mat-icon>
+                    <span>Preguntas frecuentes</span>
+                </button>
+                <button mat-menu-item (click)="cerrarSesion()">
+                    <mat-icon>logout</mat-icon>
+                    <span>Cerrar sesión</span>
+                </button>
+            </mat-menu>
+
+        </div>
+    </div>
+</nav>

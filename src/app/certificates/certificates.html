@@ -1,0 +1,44 @@
+<h2>Tus certificados</h2>
+<div class="certificates-container">
+
+  <div class="certificates-list">
+    <div class="buttons-list">
+      <button *ngFor="let cert of certificates"
+        (click)="selectCertificate(cert)">
+        {{ cert.title }}
+      </button>
+    </div>
+    <div class="download-buttons">
+      <button (click)="download('pdf')">Download as PDF</button>
+      <button (click)="download('png')">Download as PNG</button>
+      <button (click)="download('jpg')">Download as JPG</button>
+    </div>
+  </div>
+
+  <div *ngIf="selectedCertificate">
+    <!-- Certificate Detail Section -->
+    <div class="certificate-box" #certificateBox>
+
+      <div class="certificate-detail" #certificateDetail>
+        <div class="header">
+          <img [src]="selectedCertificate.organization" alt>
+          <h1>Certificado de finalización de curso{{ selectedCertificate.type }}</h1>
+          <img src="../../assets/logo-eldes.png" class="logo-eldes"
+            alt="logo eldes" />
+        </div>
+        <div class="content">
+          <p><span class="organization-name">ELdeS</span> acredita que</p>
+          <h2>{{ selectedCertificate.user }}Jane Doe</h2>
+          <p>completó exitosamente el curso</p>
+          <h3>{{ selectedCertificate.title }}</h3>
+          <p>promoviendo una comunicación más accesible e inclusiva.</p>
+          <p>con fecha {{ selectedCertificate.date | date:'longDate' }}</p>
+        <div class="signatures">
+          <img src="{{ selectedCertificate.signature1 }}" alt="signature1">
+          <img src="{{ selectedCertificate.signature2 }}" alt="signature2">
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

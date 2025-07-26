@@ -1,0 +1,86 @@
+<div class="user-ranking-container">
+
+  <!-- Info del usuario actual -->
+  <div *ngIf="currentUser" class="user-info">
+    <div class="ranking-selector">
+      <mat-button-toggle-group
+        [(ngModel)]="selectedRanking"
+        name="rankingType"
+        appearance="standard"
+        hideSingleSelectionIndicator="true"
+      >
+        <mat-button-toggle value="country">Country</mat-button-toggle>
+        <mat-button-toggle value="organization">Organization</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <h2>Your Current Rank</h2>
+    <div class="rank-box">{{ currentUser.rank }}</div>
+
+    <p *ngIf="lessonsToNext !== null && lessonsToNext > 0">
+      You're {{ lessonsToNext }} lesson{{ lessonsToNext === 1 ? '' : 's' }} away
+      from reaching the next rank.
+    </p>
+
+    <p *ngIf="lessonsToNext === 0">
+      You're tied with the next user — complete 1 more lesson to move up!
+    </p>
+
+    <p *ngIf="lessonsToNext === null">
+      You're at the top of the ranking — great job! 🏆
+    </p>
+  </div>
+
+  <!-- Tabla del Top -->
+  <div class="ranking-table-container">
+    <table mat-table [dataSource]="topUsers" class="mat-elevation-z2 ranking-table top-ranking-table">
+
+      <!-- Rank -->
+      <ng-container matColumnDef="rank">
+        <th mat-header-cell *matHeaderCellDef class="header-cell first-header-cell">Rank</th>
+        <td mat-cell *matCellDef="let user" [ngClass]="{'top-rank': user.rank <= 3}">
+          {{ getRankDisplay(user.rank) }}
+        </td>
+      </ng-container>
+
+      <!-- User -->
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef class="header-cell">User</th>
+        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+
+      <!-- Completed Lessons -->
+      <ng-container matColumnDef="lessons">
+        <th mat-header-cell *matHeaderCellDef class="header-cell last-header-cell">Completed Lessons</th>
+        <td mat-cell *matCellDef="let user">{{ user.completedLessons }}</td>
+      </ng-container>
+
+      <!-- Render rows -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <!-- Fila destacada del usuario actual -->
+    <table *ngIf="currentUser" mat-table [dataSource]="[currentUser]" class="mat-elevation-z2 ranking-table">
+      <ng-container matColumnDef="rank">
+        <td mat-cell *matCellDef="let user" class="rank-cell user-row rank-cell-header">
+          {{ user.rank }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="user">
+        <td mat-cell *matCellDef="let user" class="user-cell user-row">
+          <strong>{{ user.name }}</strong>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lessons">
+        <td mat-cell *matCellDef="let user" class="lessons-cell user-row">
+          {{ user.completedLessons }}
+        </td>
+      </ng-container>
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="user-highlight-row"></tr>
+    </table>
+  </div>
+</div>

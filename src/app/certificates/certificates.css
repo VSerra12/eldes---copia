@@ -1,0 +1,148 @@
+.certificates-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.certificates-list {
+  width: 20%;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.buttons-list {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.buttons-list button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #ffffff;
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+
+}
+
+.buttons-list button:hover {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.certificate-box {
+  background: linear-gradient(
+    to right,
+    #7aea729f,
+    #fa70c89f,
+    #9b56e29f,
+    #ff72319f,
+    #ff9f009f
+  );
+  padding: 10px;
+  border-radius: 16px;
+  display: inline-block;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.414);
+}
+.certificate-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.certificate-detail img {
+  width: 100px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.content {
+  flex: 1;
+  text-align: center;
+  font-size: 20px;
+}
+
+.content p {
+  font-size: 18px;
+  color: #555555;
+  margin: 0.5rem 0;
+  font-weight: 600;
+  padding: 0.5rem 0;
+}
+
+.signatures {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+  width: 100%;
+
+
+}
+
+.signatures img {
+  width: 175px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.content h2 {
+  font-size: 24px;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.organization-name {
+  font-weight: bold;
+  color: #FC5D1E;
+}
+
+.download-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.download-buttons button {
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.download-buttons button:hover {
+  background-color: #218838;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.header img {
+  width: 170px;
+  height: 70px;
+  padding: 1rem;
+}
+
+.header h1 {
+  font-size: 24px;
+  color: #009DFF;
+  margin: 0;
+  padding: 1rem;
+  width: 45%;
+}
