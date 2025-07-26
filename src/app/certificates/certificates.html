@@ -1,42 +1,87 @@
-<h2>Tus certificados</h2>
+<h2 class="certificates-title">Tus certificados</h2>
 <div class="certificates-container">
 
   <div class="certificates-list">
+    <!-- Lista de certificados -->
     <div class="buttons-list">
-      <button *ngFor="let cert of certificates"
-        (click)="selectCertificate(cert)">
+      <button
+        *ngFor="let cert of certificates"
+        (click)="selectCertificate(cert)"
+        [ngClass]="{ 'selected': selectedCertificate === cert }">
         {{ cert.title }}
       </button>
     </div>
-    <div class="download-buttons">
-      <button (click)="download('pdf')">Download as PDF</button>
-      <button (click)="download('png')">Download as PNG</button>
-      <button (click)="download('jpg')">Download as JPG</button>
+
+    <!-- Opciones de descarga -->
+    <div class="download-options">
+      <h3>
+        Opciones de descarga
+        <span class="material-symbols-outlined">download</span>
+      </h3>
+      <div class="download-buttons">
+        <button
+          (click)="download('pdf')"
+          [ngClass]="{ 'selected': activeFormat === 'pdf' }">
+          <span class="material-symbols-outlined">picture_as_pdf</span>
+          PDF
+        </button>
+
+        <button
+          (click)="download('png')"
+          [ngClass]="{ 'selected': activeFormat === 'png' }">
+          <span class="material-symbols-outlined">image</span>
+          PNG
+        </button>
+
+        <button
+          (click)="download('jpg')"
+          [ngClass]="{ 'selected': activeFormat === 'jpg' }">
+          <span class="material-symbols-outlined">image</span>
+          JPG
+        </button>
+      </div>
     </div>
+    <div class="share-options">
+      <h3>
+        Compartir certificado
+        <span class="material-symbols-outlined">share</span>
+      </h3>
+      <div class="share-buttons">
+        <button (click)="share('linkedin')">
+          <span class="material-symbols-outlined">work</span>
+          LinkedIn
+        </button>
+        <button (click)="share('facebook')">
+          <span class="material-symbols-outlined">facebook</span>
+          Facebook
+        </button>
+      </div>
+    </div>
+
   </div>
 
-  <div *ngIf="selectedCertificate">
-    <!-- Certificate Detail Section -->
+  <!-- Vista previa del certificado -->
+  <div *ngIf="selectedCertificate" class="certificate-detail-container">
     <div class="certificate-box" #certificateBox>
-
       <div class="certificate-detail" #certificateDetail>
         <div class="header">
-          <img [src]="selectedCertificate.organization" alt>
-          <h1>Certificado de finalización de curso{{ selectedCertificate.type }}</h1>
+          <img [src]="selectedCertificate.organization" alt="org logo">
+          <h1>Certificado de finalización de curso {{ selectedCertificate.type
+            }}</h1>
           <img src="../../assets/logo-eldes.png" class="logo-eldes"
             alt="logo eldes" />
         </div>
         <div class="content">
           <p><span class="organization-name">ELdeS</span> acredita que</p>
-          <h2>{{ selectedCertificate.user }}Jane Doe</h2>
+          <h2>{{ selectedCertificate.user }}</h2>
           <p>completó exitosamente el curso</p>
           <h3>{{ selectedCertificate.title }}</h3>
           <p>promoviendo una comunicación más accesible e inclusiva.</p>
           <p>con fecha {{ selectedCertificate.date | date:'longDate' }}</p>
-        <div class="signatures">
-          <img src="{{ selectedCertificate.signature1 }}" alt="signature1">
-          <img src="{{ selectedCertificate.signature2 }}" alt="signature2">
-        </div>
+          <div class="signatures">
+            <img [src]="selectedCertificate.signature1" alt="signature1">
+            <img [src]="selectedCertificate.signature2" alt="signature2">
+          </div>
         </div>
       </div>
     </div>

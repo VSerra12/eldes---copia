@@ -5,10 +5,22 @@
   justify-content: space-around;
 }
 
+.certificate-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.certificates-title {
+  padding: 0 50px;
+}
+
 .certificates-list {
   width: 20%;
   background-color: #ffffff;
   border-radius: 8px;
+  margin-top: 1rem;
 }
 
 .buttons-list {
@@ -28,12 +40,74 @@
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   font-weight: 700;
-
+  transition: all 0.2s ease;
 }
 
 .buttons-list button:hover {
   background-color: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo para botón seleccionado */
+.buttons-list button.selected {
+  background-color: #5CC0FF;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 0px 10px rgba(92, 192, 255, 0.5);
+}
+
+.download-options {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.download-options h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.download-options h3 .material-symbols-outlined {
+  font-size: 24px;
+  margin-left: 8px;
+}
+
+.download-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-evenly;
+}
+
+.download-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  gap: 0.3rem;
+}
+
+.download-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.5rem 1rem;
+  background-color: #5CC0FF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.download-buttons button:hover {
+  background-color: #009DFF;
+}
+
+.download-buttons .material-symbols-outlined {
+  font-size: 20px;
 }
 
 .certificate-box {
@@ -50,6 +124,7 @@
   display: inline-block;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.414);
 }
+
 .certificate-detail {
   display: flex;
   flex-direction: column;
@@ -81,21 +156,6 @@
   padding: 0.5rem 0;
 }
 
-.signatures {
-  display: flex;
-  justify-content: space-between;
-  margin: 1rem 0;
-  width: 100%;
-
-
-}
-
-.signatures img {
-  width: 175px;
-  height: auto;
-  border-radius: 4px;
-}
-
 .content h2 {
   font-size: 24px;
   color: #000000;
@@ -107,23 +167,17 @@
   color: #FC5D1E;
 }
 
-.download-buttons {
-  margin-top: 1rem;
+.signatures {
   display: flex;
-  gap: 0.5rem;
+  justify-content: space-between;
+  margin: 1rem 0;
+  width: 100%;
 }
 
-.download-buttons button {
-  padding: 0.5rem 1rem;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.download-buttons button:hover {
-  background-color: #218838;
+.signatures img {
+  width: 175px;
+  height: auto;
+  border-radius: 4px;
 }
 
 .header {
@@ -145,4 +199,44 @@
   margin: 0;
   padding: 1rem;
   width: 45%;
+}
+
+
+.share-options {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.share-options h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.share-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-evenly;
+}
+
+.share-buttons button {
+  padding: 0.5rem 1rem;
+  background-color: #1877f2; /* color azul tipo Facebook */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.share-buttons button:first-child {
+  background-color: #0077b5; /* LinkedIn azul */
+}
+
+.share-buttons button:hover {
+  opacity: 0.9;
 }
