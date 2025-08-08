@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+// src/app/ranking/ranking.ts
+
+import { Component, inject, OnInit, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+import { Api } from '../services/api'; // <-- IMPORTANTE
 
 interface User {
   rank: number;
@@ -17,37 +20,57 @@ interface User {
   templateUrl: './ranking.html',
   styleUrls: ['./ranking.css'],
 })
-export class Ranking {
+export class Ranking implements OnInit {
+  private api = inject(Api); // <-- INYECTAR EL SERVICIO
+
   displayedColumns: string[] = ['rank', 'user', 'lessons'];
   currentUserName = 'Victoria Serra';
   selectedRanking: 'country' | 'organization' = 'country';
 
-  // Rankings simulados
-  countryRanking: User[] = [
-    { rank: 1, name: 'Lucía Gómez', completedLessons: 24 },
-    { rank: 2, name: 'Martín Pérez', completedLessons: 21 },
-    { rank: 3, name: 'Carlos Díaz', completedLessons: 20 },
-    { rank: 4, name: 'Ana Torres', completedLessons: 19 },
-    { rank: 5, name: 'Pedro Ruiz', completedLessons: 18 },
-    { rank: 6, name: 'Pedro Ruiz', completedLessons: 18 },
-    { rank: 7, name: 'Pedro Ruiz', completedLessons: 18 },
-    { rank: 8, name: 'Pedro Ruiz', completedLessons: 18 },
-    { rank: 9, name: 'Victoria Serra', completedLessons: 17 },
-    { rank: 10, name: 'Victoria Serra', completedLessons: 17 },
-  ];
+  // Datos reales (vía signals para standalone Angular moderno)
+  countryRanking = signal<User[]>([]);
+  organizationRanking = signal<User[]>([]);
 
-  organizationRanking: User[] = [
-    { rank: 1, name: 'Lucía Gómez', completedLessons: 22 },
-    { rank: 2, name: 'Victoria Serra', completedLessons: 20 },
-    { rank: 3, name: 'Matías Luján', completedLessons: 18 },
-    { rank: 4, name: 'Eugenia Torres', completedLessons: 15 },
-    { rank: 5, name: 'Mario Rivas', completedLessons: 14 },
-  ];
+  userId = '1301adf9-b6d0-4a39-acb9-c67c9b60ae7c'; // <-- Reemplazar por valor real
+  courseId = 'e45c139c-03cb-4a54-b0a4-a6925eff2d8b'; // <-- Reemplazar por valor real
+
+  ngOnInit() {
+    this.fetchRanking('country');
+    this.fetchRanking('organization');
+  }
+
+  ngOnChanges() {
+    this.fetchRanking(this.selectedRanking); // si el componente recibe inputs
+  }
+
+  fetchRanking(tipo: 'country' | 'organization') {
+    this.api
+      .getRankingPosition({
+        userId: this.userId,
+        courseId: this.courseId,
+        tipo: tipo,
+      })
+      .subscribe({
+        next: (res) => {
+          // res debe tener un array con el top y la posición del usuario
+          // Suponemos que res tiene: { top: User[], user: User }
+          const sorted = res.top || [];
+          if (tipo === 'country') {
+            this.countryRanking.set(sorted);
+          } else {
+            this.organizationRanking.set(sorted);
+          }
+        },
+        error: (err) => {
+          console.error(`Error al obtener ranking ${tipo}`, err);
+        },
+      });
+  }
 
   get activeRanking(): User[] {
     return this.selectedRanking === 'country'
-      ? this.countryRanking
-      : this.organizationRanking;
+      ? this.countryRanking()
+      : this.organizationRanking();
   }
 
   get topUsers(): User[] {

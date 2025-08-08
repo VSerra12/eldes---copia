@@ -1,7 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, inject } from '@angular/core';
 import { DatePipe, CommonModule } from '@angular/common';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import { Api } from '../services/api'; // <-- NUEVO: importamos el servicio Api
 
 @Component({
   selector: 'app-certificates',
@@ -11,6 +12,8 @@ import { jsPDF } from 'jspdf';
   imports: [CommonModule, DatePipe],
 })
 export class Certificates {
+  private api = inject(Api); // <-- NUEVO: inyectamos el servicio
+
   certificates = [
     {
       title: 'Curso básico de Lengua de Señas',
@@ -22,18 +25,9 @@ export class Certificates {
       type: '',
       signature1: 'assets/signatures/firma1.png',
       signature2: 'assets/signatures/firma2.png',
+      url: 'https://miapp.com/certificados/curso-basico' // <-- link público al certificado
     },
-    {
-      title: 'Curso intermedio de Lengua de Señas',
-      date: '2025-07-15',
-      description: 'Fluidez conversacional en LSA.',
-      image: 'assets/certificates/intermediate.png',
-      organization: 'assets/eldes.png',
-      user: 'Victoria Serra',
-      type: '',
-      signature1: 'assets/signatures/firma1.png',
-      signature2: 'assets/signatures/firma2.png',
-    },
+    // otros certificados...
   ];
 
   selectedCertificate: any = this.certificates[0];
@@ -44,12 +38,11 @@ export class Certificates {
 
   selectCertificate(cert: any) {
     this.selectedCertificate = cert;
-    this.activeFormat = null; // resetea formato activo al cambiar de certificado
+    this.activeFormat = null;
   }
 
   async download(format: 'pdf' | 'png' | 'jpg') {
     this.activeFormat = format;
-
     const element = this.certificateBoxRef.nativeElement;
     const canvas = await html2canvas(element, { scale: 2 });
 
@@ -73,19 +66,29 @@ export class Certificates {
       link.click();
     }
   }
+
   share(platform: 'linkedin' | 'facebook') {
-    const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent(
-      `Mirá mi certificado de ${this.selectedCertificate.title}`
-    );
-    let shareUrl = '';
+    const payload = {
+      nombre: this.selectedCertificate.user,
+      nombreCurso: this.selectedCertificate.title,
+      redesYUrls: {
+        [platform]: this.selectedCertificate.url,
+      },
+    };
 
-    if (platform === 'linkedin') {
-      shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-    } else if (platform === 'facebook') {
-      shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-    }
-
-    window.open(shareUrl, '_blank');
+    this.api.shareCertificate(payload).subscribe({
+      next: (res) => {
+        const shareUrl = res[platform];
+        if (shareUrl) {
+          window.open(shareUrl, '_blank');
+        } else {
+          alert('No se pudo generar el link para compartir');
+        }
+      },
+      error: (err) => {
+        console.error('Error al compartir certificado', err);
+        alert('Error al compartir el certificado');
+      },
+    });
   }
 }
