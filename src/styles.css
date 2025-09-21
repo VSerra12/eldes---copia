@@ -12,3 +12,38 @@ body {
   font-style: normal;
 
 }
+
+:root {
+  /* ====== Colores base (fondos pastel) ====== */
+  --color-pink-light: #FFD6E8;
+  --color-pink-lighter: #FFEBF6;
+
+  --color-orange-light: #FFE5CC;
+  --color-orange-lighter: #FFF1E0;
+
+  --color-green-light: #D8F9E5;
+  --color-green-lighter: #E9FFF4;
+
+  --color-blue-light: #DFF3FF;
+  --color-blue-lighter: #EDF9FF;
+
+  --color-purple-light: #F1E7FF;
+  --color-purple-lighter: #F9F3FF;
+
+  /* ====== Acentos vibrantes ====== */
+  --color-orange: #FF7E0E;
+  --color-pink: #FF3E9D;
+  --color-blue: #5CC0FF;
+  --color-blue-dark: #009DFF;
+  --color-green: #16D019;
+
+  /* ====== Gradientes ====== */
+  --gradient-orange-pink: linear-gradient(90deg, #FF7E0E, #FF3E9D);
+  --gradient-blue: linear-gradient(90deg, #5CC0FF, #009DFF);
+
+  /* ====== Neutros ====== */
+  --color-text-primary: #222;
+  --color-text-secondary: #555;
+  --color-bg-card: #FFFFFF;
+  --color-shadow: rgba(0, 0, 0, 0.08);
+}

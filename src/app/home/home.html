@@ -1,0 +1,25 @@
+<div class="home-container">
+  <div>
+    <h2>Novedades</h2>
+    <hr>
+  </div>
+
+  <div class="carousel-container">
+    <!-- Botón izquierdo -->
+    <button class="arrow left" (click)="prev()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <!-- Grilla -->
+    <div class="grid-container">
+      <div class="card" *ngFor="let item of visibleItems">
+        {{ item }}
+      </div>
+    </div>
+
+    <!-- Botón derecho -->
+    <button class="arrow right" (click)="next()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+</div>

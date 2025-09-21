@@ -1,0 +1,69 @@
+:host {
+  display: block;
+  background-color: #f5f7fa; /* fondo claro */
+  min-height: 100vh;
+  padding-bottom: 32px;
+}
+
+/* O con imagen */
+:host {
+  display: block;
+  min-height: 100vh;
+  background-image: url("/assets/background-ranking.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  /* background: linear-gradient(45deg, #fbc2eb, #a6c1ee, #fddb92, #d1fdff); */
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 250px);
+  grid-template-rows: repeat(2, 150px);
+  gap: 15px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.grid-container.slide-left {
+  transform: translateX(-50px);
+  opacity: 0;
+}
+
+.grid-container.slide-right {
+  transform: translateX(50px);
+  opacity: 0;
+}
+
+.card {
+  background: #ccc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  transition: transform 0.2s ease;
+}
+
+.arrow:hover {
+  transform: scale(1.2);
+}

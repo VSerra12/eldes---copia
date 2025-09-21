@@ -1,8 +1,8 @@
-import { Component, ViewChild, ElementRef, inject } from '@angular/core';
+import { Component, ViewChild, ElementRef, inject, OnInit } from '@angular/core';
 import { DatePipe, CommonModule } from '@angular/common';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import { Api } from '../services/api'; // <-- NUEVO: importamos el servicio Api
+import { Api, CompletedCourse } from '../services/api'; // importamos el nuevo tipo
 
 @Component({
   selector: 'app-certificates',
@@ -11,30 +11,44 @@ import { Api } from '../services/api'; // <-- NUEVO: importamos el servicio Api
   styleUrls: ['./certificates.css'],
   imports: [CommonModule, DatePipe],
 })
-export class Certificates {
-  private api = inject(Api); // <-- NUEVO: inyectamos el servicio
+export class Certificates implements OnInit {
+  private api = inject(Api);
 
-  certificates = [
-    {
-      title: 'Curso básico de Lengua de Señas',
-      date: '2025-06-10',
-      description: 'Introducción a señas básicas.',
-      image: 'assets/certificates/basic.png',
-      organization: 'assets/eldes.png',
-      user: 'Victoria Serra',
-      type: '',
-      signature1: 'assets/signatures/firma1.png',
-      signature2: 'assets/signatures/firma2.png',
-      url: 'https://miapp.com/certificados/curso-basico' // <-- link público al certificado
-    },
-    // otros certificados...
-  ];
-
-  selectedCertificate: any = this.certificates[0];
+  certificates: any[] = []; 
+  selectedCertificate: any = null;
   activeFormat: 'pdf' | 'png' | 'jpg' | null = null;
 
   @ViewChild('certificateBox', { static: false })
   certificateBoxRef!: ElementRef;
+
+  ngOnInit(): void {
+    const userId = '4c87eeed-1a39-417d-bec3-337faa5d4988'; // ID de usuario fijo para este ejemplo
+    this.api.getCompletedCourses(userId).subscribe({
+      next: (courses: CompletedCourse[]) => {
+        
+        this.certificates = courses.map(c => ({
+          title: c.courseName,
+          date: c.lastUpdated,
+          description: '', // si en el futuro hay descripción
+          image: 'assets/certificates/basic.png', // placeholder si tenés plantillas
+          organization: 'assets/eldes.png',
+          user: c.userName,
+          type: '',
+          signature1: 'assets/signatures/firma1.png',
+          signature2: 'assets/signatures/firma2.png',
+          url: `https://miapp.com/certificados/${c.courseId}` // URL pública por curso
+        }));
+
+        // seleccionar el primero por defecto
+        if (this.certificates.length > 0) {
+          this.selectedCertificate = this.certificates[0];
+        }
+      },
+      error: (err) => {
+        console.error('Error cargando cursos completados:', err);
+      }
+    });
+  }
 
   selectCertificate(cert: any) {
     this.selectedCertificate = cert;

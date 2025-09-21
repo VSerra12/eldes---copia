@@ -1,94 +1,149 @@
-// src/app/ranking/ranking.ts
-
-import { Component, inject, OnInit, computed, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { FormsModule } from '@angular/forms';
-import { Api } from '../services/api'; // <-- IMPORTANTE
+import { Api } from '../services/api';
 
-interface User {
+interface RankingEntry {
   rank: number;
-  name: string;
+  userName: string;
   completedLessons: number;
+}
+
+interface RankingInfo {
+  position: number;
+  points: number;
+}
+
+interface CombinedRankingResult {
+  globalRanking: RankingInfo;
+  organizationRanking?: RankingInfo;
+  top5Global: RankingEntry[];
+  top5Organization?: RankingEntry[];
 }
 
 @Component({
   selector: 'app-ranking',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonToggleModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatTableModule, MatButtonToggleModule],
   templateUrl: './ranking.html',
   styleUrls: ['./ranking.css'],
 })
 export class Ranking implements OnInit {
-  private api = inject(Api); // <-- INYECTAR EL SERVICIO
+  private api = inject(Api);
 
   displayedColumns: string[] = ['rank', 'user', 'lessons'];
-  currentUserName = 'Victoria Serra';
+
   selectedRanking: 'country' | 'organization' = 'country';
+  userId = '2900dee6-e74d-48d2-87c4-b58c99d79dcf';
 
-  // Datos reales (vía signals para standalone Angular moderno)
-  countryRanking = signal<User[]>([]);
-  organizationRanking = signal<User[]>([]);
+  // Signals
+  topGlobal = signal<RankingEntry[]>([]);
+  topOrganization = signal<RankingEntry[]>([]);
+  currentUser = signal<RankingEntry | null>(null);
 
-  userId = '1301adf9-b6d0-4a39-acb9-c67c9b60ae7c'; // <-- Reemplazar por valor real
-  courseId = 'e45c139c-03cb-4a54-b0a4-a6925eff2d8b'; // <-- Reemplazar por valor real
+  lessonsToNext: number | null = null;
+  hasOrganizationRanking = signal(false);
 
-  ngOnInit() {
-    this.fetchRanking('country');
-    this.fetchRanking('organization');
+  ngOnInit(): void {
+    this.fetchRanking();
   }
 
-  ngOnChanges() {
-    this.fetchRanking(this.selectedRanking); // si el componente recibe inputs
+  fetchRanking() {
+    this.api.getUserRanking(this.userId).subscribe({
+      next: (res: CombinedRankingResult) => {
+        // Mapear Global
+        this.topGlobal.set(
+          res.top5Global.map((u, index) => ({
+            rank: index + 1,
+            userName: u.userName,
+            completedLessons: res.globalRanking.points,
+          }))
+        );
+
+        // Mapear Organización
+        if (res.organizationRanking && res.top5Organization) {
+          this.topOrganization.set(
+            res.top5Organization.map((u, index) => ({
+              rank: index + 1,
+              userName: u.userName,
+              completedLessons: res.organizationRanking?.points ?? 0,
+            }))
+          );
+          this.hasOrganizationRanking.set(true);
+        } else {
+          this.hasOrganizationRanking.set(false);
+          this.selectedRanking = 'country';
+        }
+
+        // Inicializar currentUser según ranking seleccionado
+        this.updateCurrentUser(res);
+
+        // Calcular diferencia
+        this.calculateLessonsToNext(res);
+      },
+      error: (err) => console.error('Error al obtener ranking', err),
+    });
   }
 
-  fetchRanking(tipo: 'country' | 'organization') {
-    this.api
-      .getRankingPosition({
-        userId: this.userId,
-        courseId: this.courseId,
-        tipo: tipo,
-      })
-      .subscribe({
-        next: (res) => {
-          // res debe tener un array con el top y la posición del usuario
-          // Suponemos que res tiene: { top: User[], user: User }
-          const sorted = res.top || [];
-          if (tipo === 'country') {
-            this.countryRanking.set(sorted);
-          } else {
-            this.organizationRanking.set(sorted);
-          }
-        },
-        error: (err) => {
-          console.error(`Error al obtener ranking ${tipo}`, err);
-        },
+  updateCurrentUser(res: CombinedRankingResult) {
+    if (this.selectedRanking === 'country') {
+      this.currentUser.set({
+        rank: res.globalRanking.position,
+        userName: 'You',
+        completedLessons: res.globalRanking.points,
       });
+    } else if (res.organizationRanking) {
+      this.currentUser.set({
+        rank: res.organizationRanking.position,
+        userName: 'You',
+        completedLessons: res.organizationRanking.points,
+      });
+    }
   }
 
-  get activeRanking(): User[] {
+  onRankingTypeChange() {
+    this.api.getUserRanking(this.userId).subscribe({
+      next: (res) => {
+        this.updateCurrentUser(res);
+        this.calculateLessonsToNext(res);
+      },
+    });
+  }
+
+  calculateLessonsToNext(res: CombinedRankingResult) {
+    let activeRanking =
+      this.selectedRanking === 'country'
+        ? res.top5Global
+        : res.top5Organization || [];
+
+    const userRank =
+      this.selectedRanking === 'country'
+        ? res.globalRanking.position
+        : res.organizationRanking?.position;
+
+    if (!userRank) {
+      this.lessonsToNext = null;
+      return;
+    }
+
+    const currentIndex = activeRanking.findIndex((u) => u.rank === userRank);
+
+    if (currentIndex > 0) {
+      const currentUser = activeRanking[currentIndex];
+      const nextUser = activeRanking[currentIndex - 1];
+      this.lessonsToNext =
+        nextUser.completedLessons - currentUser.completedLessons;
+    } else {
+      this.lessonsToNext = null; // ya está en el top
+    }
+  }
+
+  get topUsers(): RankingEntry[] {
     return this.selectedRanking === 'country'
-      ? this.countryRanking()
-      : this.organizationRanking();
-  }
-
-  get topUsers(): User[] {
-    return this.activeRanking.slice(0, 10);
-  }
-
-  get currentUser(): User | undefined {
-    return this.activeRanking.find((u) => u.name === this.currentUserName);
-  }
-
-  get lessonsToNext(): number | null {
-    if (!this.currentUser || this.currentUser.rank <= 1) return null;
-    const userAbove = this.activeRanking.find(
-      (u) => u.rank === this.currentUser!.rank - 1
-    );
-    return userAbove
-      ? userAbove.completedLessons - this.currentUser.completedLessons
-      : null;
+      ? this.topGlobal()
+      : this.topOrganization();
   }
 
   getRankDisplay(rank: number): string | number {
