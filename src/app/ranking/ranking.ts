@@ -8,7 +8,7 @@ import { Api } from '../services/api';
 interface RankingEntry {
   rank: number;
   userName: string;
-  completedLessons: number;
+  points: number;
 }
 
 interface RankingInfo {
@@ -36,7 +36,7 @@ export class Ranking implements OnInit {
   displayedColumns: string[] = ['rank', 'user', 'lessons'];
 
   selectedRanking: 'country' | 'organization' = 'country';
-  userId = '2900dee6-e74d-48d2-87c4-b58c99d79dcf';
+  userId = 'bb1ec047-cba7-44dc-9924-42f4666f6a57';
 
   // Signals
   topGlobal = signal<RankingEntry[]>([]);
@@ -58,7 +58,7 @@ export class Ranking implements OnInit {
           res.top5Global.map((u, index) => ({
             rank: index + 1,
             userName: u.userName,
-            completedLessons: res.globalRanking.points,
+            points: u.points,
           }))
         );
 
@@ -68,7 +68,7 @@ export class Ranking implements OnInit {
             res.top5Organization.map((u, index) => ({
               rank: index + 1,
               userName: u.userName,
-              completedLessons: res.organizationRanking?.points ?? 0,
+              points: res.organizationRanking?.points ?? 0,
             }))
           );
           this.hasOrganizationRanking.set(true);
@@ -92,13 +92,13 @@ export class Ranking implements OnInit {
       this.currentUser.set({
         rank: res.globalRanking.position,
         userName: 'You',
-        completedLessons: res.globalRanking.points,
+        points: res.globalRanking.points,
       });
     } else if (res.organizationRanking) {
       this.currentUser.set({
         rank: res.organizationRanking.position,
         userName: 'You',
-        completedLessons: res.organizationRanking.points,
+        points: res.organizationRanking.points,
       });
     }
   }
@@ -134,7 +134,7 @@ export class Ranking implements OnInit {
       const currentUser = activeRanking[currentIndex];
       const nextUser = activeRanking[currentIndex - 1];
       this.lessonsToNext =
-        nextUser.completedLessons - currentUser.completedLessons;
+        nextUser.points - currentUser.points;
     } else {
       this.lessonsToNext = null; // ya está en el top
     }

@@ -22,7 +22,7 @@ export class Certificates implements OnInit {
   certificateBoxRef!: ElementRef;
 
   ngOnInit(): void {
-    const userId = '4c87eeed-1a39-417d-bec3-337faa5d4988'; // ID de usuario fijo para este ejemplo
+    const userId = 'bb1ec047-cba7-44dc-9924-42f4666f6a57'; // ID de usuario fijo para este ejemplo
     this.api.getCompletedCourses(userId).subscribe({
       next: (courses: CompletedCourse[]) => {
         
