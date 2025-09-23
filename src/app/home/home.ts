@@ -17,8 +17,15 @@ export class Home {
 
   animationDirection: 'left' | 'right' | null = null;
 
+  continueItems = ['Curso 1', 'Curso 2', 'Curso 3', 'Curso 4', 'Curso 5'];
+  continueStartIndex = 0;
+
   get visibleItems() {
     return this.items.slice(this.currentIndex, this.currentIndex + this.itemsPerPage);
+  }
+
+  get visibleContinueItems() {
+    return this.continueItems.slice(this.continueStartIndex, this.continueStartIndex + 3);
   }
 
   prev() {
@@ -45,5 +52,17 @@ export class Home {
       }
       this.animationDirection = null;
     }, 300);
+  }
+
+  prevContinue() {
+    if (this.continueStartIndex > 0) {
+      this.continueStartIndex--;
+    }
+  }
+
+  nextContinue() {
+    if (this.continueStartIndex < this.continueItems.length - 3) {
+      this.continueStartIndex++;
+    }
   }
 }

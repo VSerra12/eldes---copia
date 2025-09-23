@@ -1,25 +1,86 @@
 <div class="home-container">
-  <div>
-    <h2>Novedades</h2>
-    <hr>
+
+  <section class="carousel-section">
+    <h2 class="subrayado novedades">Novedades</h2>
+    <div class="carousel-container">
+      <!-- Botón izquierdo -->
+      <button class="arrow left" (click)="prev()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <!-- Grilla -->
+      <div class="grid-container">
+        <div class="card" *ngFor="let item of visibleItems">
+          {{ item }}
+        </div>
+      </div>
+
+      <!-- Botón derecho -->
+      <button class="arrow right" (click)="next()">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+  </section>
+
+  <!-- Nueva sección: Continuar aprendiendo -->
+  <div class="section-ovalo">
+    <div class="ovalo-blanco">
+      <section>
+        <div class="continue-learning-section">
+          <div class="continue-learning-box">
+            <h2 class="subrayado continuar-aprendiendo">Continuar
+              aprendiendo</h2>
+            <div class="continue-carousel-container">
+              <button class="arrow left" (click)="prevContinue()">
+                <mat-icon>arrow_back</mat-icon>
+              </button>
+              <div class="continue-grid-container">
+                <div class="continue-card"
+                  *ngFor="let course of visibleContinueItems">
+                  {{ course }}
+                </div>
+              </div>
+              <button class="arrow right" (click)="nextContinue()">
+                <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 
-  <div class="carousel-container">
-    <!-- Botón izquierdo -->
-    <button class="arrow left" (click)="prev()">
-      <mat-icon>chevron_left</mat-icon>
-    </button>
-
-    <!-- Grilla -->
-    <div class="grid-container">
-      <div class="card" *ngFor="let item of visibleItems">
-        {{ item }}
+  <!-- Nueva sección: Recomendadas para ti -->
+  <section class="recommend-section">
+    <div class="recommend-header">
+      <h2 class="recommend-title">Recomendadas para ti</h2>
+      <a class="see-all-link" href="#">Ver todos los cursos &rarr;</a>
+    </div>
+    <div class="recommend-cards-row">
+      <div class="recommend-card purple">
+        <div class="recommend-card-title">Curso de lenguaje de señas</div>
+        <div class="recommend-card-info">20 Lecciones · 1 h 20 min</div>
+        <button class="recommend-dropdown">
+          Ver más
+          <span class="arrow">&#9660;</span>
+        </button>
+      </div>
+      <div class="recommend-card pink">
+        <div class="recommend-card-title">Curso de lenguaje de señas</div>
+        <div class="recommend-card-info">20 Lecciones · 1 h 20 min</div>
+        <button class="recommend-dropdown">
+          Ver más
+          <span class="arrow">&#9660;</span>
+        </button>
+      </div>
+      <div class="recommend-card yellow">
+        <div class="recommend-card-title">Curso de lenguaje de señas</div>
+        <div class="recommend-card-info">20 Lecciones · 1 h 20 min</div>
+        <button class="recommend-dropdown">
+          Ver más
+          <span class="arrow">&#9660;</span>
+        </button>
       </div>
     </div>
-
-    <!-- Botón derecho -->
-    <button class="arrow right" (click)="next()">
-      <mat-icon>chevron_right</mat-icon>
-    </button>
-  </div>
+  </section>
 </div>
