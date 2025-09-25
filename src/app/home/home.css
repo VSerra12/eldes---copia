@@ -1,66 +1,194 @@
 :host {
   display: block;
-  background-color: #f5f7fa; /* fondo claro */
-  min-height: 100vh;
-  padding-bottom: 32px;
-}
-
-/* O con imagen */
-:host {
-  display: block;
+  background-color: #f5f7fa;
   min-height: 100vh;
   background-image: url("/assets/background-ranking.png");
   background-size: cover;
   background-position: center;
+  padding-bottom: 32px;
 }
 
-section{
-  padding: 0 2%;
+section {
+  padding: 0 50px;
 }
 
 .home-container {
   min-width: 1200px;
-  /* padding: 0 2%; */
   box-sizing: border-box;
+  padding-top: 15px;
 }
 
+/* === CAROUSEL GENERAL === */
 .carousel-container {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   position: relative;
-  /* background: linear-gradient(45deg, #fbc2eb, #a6c1ee, #fddb92, #d1fdff); */
   padding: 20px;
   border-radius: 12px;
 }
 
+/* Novedades (1 fila de 3 cards) */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 350px);
-  grid-template-rows: repeat(2, 180px);
+  grid-auto-rows: 200px;
+  gap: 20px;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Continuar aprendiendo (1 fila de 3 cards) */
+.continue-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  grid-auto-rows: 180px;
   gap: 15px;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.grid-container.slide-left {
+/* === CARDS === */
+.card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+/* Loader (spinner centrado) */
+.card-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top: 3px solid #ff6400;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  z-index: 5;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Imagen */
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.card-img.loaded {
+  opacity: 1;
+}
+
+/* Título encima de la imagen */
+.card-title {
+  position: absolute;
+  z-index: 2;
+  margin: 10px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 6px;
+  bottom: 0;
+}
+
+/* Overlay */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 60%, rgba(0, 0, 0, 0) 100%);
+  color: #fff;
+  padding: 1rem;
+  font-size: 0.9rem;
+  border-radius: inherit;
+
+  opacity: 0;
+  transform: translateY(100%);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.card:hover .card-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.card-overlay p,
+.card-overlay span {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.card:hover .card-overlay p,
+.card:hover .card-overlay span {
+  opacity: 1;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: #ddd;
+}
+.continue-overlay {
+  justify-content: flex-start;
+}
+
+/* Botón play */
+.play-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: linear-gradient(180deg, #9b5de5, #6cc9fa);
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 100%;
+
+  opacity: 0;
+  transform: scale(0.8);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 10;
+}
+.card:hover .play-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+.play-btn:hover {
+  transform: scale(1.15);
+}
+
+/* Animaciones de slide */
+.slide-left {
   transform: translateX(-50px);
   opacity: 0;
 }
-
-.grid-container.slide-right {
+.slide-right {
   transform: translateX(50px);
   opacity: 0;
 }
 
-.card {
-  background: #ccc;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
+/* Flechas */
 .arrow {
   background: linear-gradient(180deg, #ff812e, #ff372b);
   border: none;
@@ -74,74 +202,68 @@ section{
   transition: transform 0.2s ease;
   border-radius: 100%;
 }
-
 .arrow:hover {
   transform: scale(1.2);
 }
 
-
-.subrayado {
-  display: inline-block;
-  border-bottom: 5px solid #FF6400;
-  width: 40px;
-  padding-bottom: 4px;
+/* Títulos secciones */
+.news-title::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 5px;
+  background: #ff6400;
+  margin-top: 6px;
+}
+.keep-learning-title{
+  margin-top: 6rem;
   margin-bottom: 1rem;
 }
 
-.continuar-aprendiendo {
-  border-bottom: 5px solid #3BA8F6;
+.keep-learning-title::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 5px;
+  background: #3ba8f6;
+  margin-top: 6px;
 }
 
-.continue-carousel-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.continue-grid-container {
-  display: flex;
-  gap: 1rem;
-}
-
-.continue-card {
-  background: #f5f5f5;
-  border-radius: 10px;
-  padding: 1.2rem 2rem;
-  min-width: 180px;
-  text-align: center;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-}
-
-.recommend-section {
-  margin: 2.5rem 0 2rem 0;
+/* === OVALO === */
+.ovalo-blanco {
   background: #fff;
+  border-radius: 100% 100% 0 0 / 60% 60% 0 0;
+  padding: 0.5rem 0rem 3rem;
+}
+.continue-learning-box {
+  padding-top: 100px;
 }
 
+/* === RECOMENDADAS === */
+.recommend-section {
+  background: #fff;
+  min-height: 600px;
+}
 .recommend-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.2rem;
 }
-
 .recommend-title {
   font-size: 1.4rem;
   font-weight: 700;
   margin: 0;
   position: relative;
 }
-
 .recommend-title::after {
   content: "";
   display: block;
   width: 36px;
   height: 5px;
   background: #ffc107;
-  border-radius: 3px;
   margin-top: 6px;
 }
-
 .see-all-link {
   color: #ff812e;
   font-weight: 600;
@@ -149,7 +271,6 @@ section{
   font-size: 1rem;
   transition: color 0.2s;
 }
-
 .see-all-link:hover {
   color: #ff372b;
 }
@@ -160,86 +281,80 @@ section{
   justify-content: flex-start;
   flex-wrap: wrap;
 }
-
 .recommend-card {
   flex: 1 1 220px;
-  max-width: 260px;
-  min-width: 220px;
   background: #f5f5f5;
   border-radius: 18px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   padding: 1.5rem 1.2rem 1.2rem 1.2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-
 .recommend-card-title {
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 0.7rem;
   color: #222;
 }
-
 .recommend-card-info {
   font-size: 0.98rem;
   color: #444;
   margin-bottom: 1.2rem;
 }
-
 .recommend-dropdown {
   width: 100%;
   background: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 0.7rem 1rem;
+  border-radius: 16px;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #7c4dff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  transition: background 0.2s;
+  margin-top: auto;
+}
+.recommend-dropdown-content {
+  background: #fff;
+  border-radius: 0 0 12px 12px;
+  font-size: 0.95rem;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  animation: dropdown 0.3s ease;
+  width: 100%;
+}
+@keyframes dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.recommend-dropdown .arrow {
-  font-size: 1.2rem;
-  margin-left: 0.5rem;
-}
-
+/* Colores disponibles */
 .recommend-card.purple {
   background: linear-gradient(135deg, #b39ddb 0%, #9575cd 100%);
 }
-
 .recommend-card.pink {
   background: linear-gradient(135deg, #f8bbd0 0%, #f06292 100%);
 }
-
 .recommend-card.yellow {
   background: linear-gradient(135deg, #ffe082 0%, #ffd54f 100%);
 }
 
+/* Colores botón según card */
 .recommend-card.purple .recommend-dropdown {
-  color: #7c4dff;
+  color: #9575cd;
 }
 .recommend-card.pink .recommend-dropdown {
-  color: #e040fb;
+  color: #f06292;
 }
 .recommend-card.yellow .recommend-dropdown {
-  color: #ffb300;
-}
-
-
-.ovalo-blanco {
-  background: #fff;
-  border-radius: 100% 100% 0 0 / 60% 60% 0 0; 
-  /* óvalo en la parte superior */
-  padding: 0.5rem 0rem;
-  min-height: 600px; /* lo que necesites */
-}
-
-.continue-learning-box{
-  padding-top: 100px;
+  color: #ffd54f;
 }

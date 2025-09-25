@@ -1,86 +1,129 @@
 <div class="home-container">
 
+  <!-- Sección Novedades -->
   <section class="carousel-section">
-    <h2 class="subrayado novedades">Novedades</h2>
+    <h2 class="news-title">Novedades</h2>
     <div class="carousel-container">
-      <!-- Botón izquierdo -->
       <button class="arrow left" (click)="prev()">
         <mat-icon>arrow_back</mat-icon>
       </button>
 
-      <!-- Grilla -->
-      <div class="grid-container">
-        <div class="card" *ngFor="let item of visibleItems">
-          {{ item }}
+      <div class="grid-container"
+        [ngClass]="{'slide-left': animationDirectionNovedades === 'left',
+                    'slide-right': animationDirectionNovedades === 'right'}">
+        <div class="card"
+             *ngFor="let item of visibleItems; trackBy: trackByIndex">
+          <div class="image-wrapper">
+            <div class="image-loader" *ngIf="!item.loaded"></div>
+            <img [src]="item.image"
+                 [alt]="item.title"
+                 [class.card-img]="true"
+                 [class.loaded]="item.loaded"
+                 loading="lazy"
+                 (load)="onImageLoad(item, 'novedades')">
+          </div>
+
+          <h3 class="card-title">{{ item.title }}</h3>
+
+          <div class="card-overlay">
+            <p>{{ item.description }}</p>
+            <div class="tags">
+              <span>{{ item.difficulty }}</span>
+              <span> • </span>
+              <span>{{ item.lessons }} Lecciones</span>
+              <span> • </span>
+              <span>{{ item.hours }}</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Botón derecho -->
       <button class="arrow right" (click)="next()">
         <mat-icon>arrow_forward</mat-icon>
       </button>
     </div>
   </section>
 
-  <!-- Nueva sección: Continuar aprendiendo -->
+  <!-- Continuar aprendiendo -->
   <div class="section-ovalo">
     <div class="ovalo-blanco">
-      <section>
-        <div class="continue-learning-section">
-          <div class="continue-learning-box">
-            <h2 class="subrayado continuar-aprendiendo">Continuar
-              aprendiendo</h2>
-            <div class="continue-carousel-container">
-              <button class="arrow left" (click)="prevContinue()">
-                <mat-icon>arrow_back</mat-icon>
-              </button>
-              <div class="continue-grid-container">
-                <div class="continue-card"
-                  *ngFor="let course of visibleContinueItems">
-                  {{ course }}
+      <section class="continue-learning-section">
+        <h2 class="keep-learning-title">Continuar aprendiendo</h2>
+        <div class="carousel-container">
+          <button class="arrow left" (click)="prevContinue()">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+
+          <div class="continue-grid-container"
+            [ngClass]="{'slide-left': animationDirectionContinue === 'left',
+                        'slide-right': animationDirectionContinue === 'right'}">
+            <div class="card"
+                 *ngFor="let course of visibleContinueItems; trackBy: trackByIndex">
+              <div class="image-wrapper">
+                <div class="image-loader" *ngIf="!course.loaded"></div>
+                <img [src]="course.image"
+                     [alt]="course.title"
+                     [class.card-img]="true"
+                     [class.loaded]="course.loaded"
+                     loading="lazy"
+                     (load)="onImageLoad(course, 'continuar')">
+              </div>
+
+              <h3 class="card-title">{{ course.title }}</h3>
+
+              <div class="card-overlay continue-overlay">
+                <p>{{ course.description }}</p>
+                <div class="tags">
+                  <span>{{ course.difficulty }}</span>
+                  <span> • </span>
+                  <span>{{ course.lessons }} Lecciones</span>
+                  <span> • </span>
+                  <span>{{ course.hours }}</span>
                 </div>
               </div>
-              <button class="arrow right" (click)="nextContinue()">
-                <mat-icon>arrow_forward</mat-icon>
+
+              <button class="play-btn">
+                <mat-icon>play_arrow</mat-icon>
               </button>
             </div>
           </div>
+
+          <button class="arrow right" (click)="nextContinue()">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
         </div>
       </section>
     </div>
   </div>
 
-  <!-- Nueva sección: Recomendadas para ti -->
+  <!-- Sección Recomendadas -->
   <section class="recommend-section">
     <div class="recommend-header">
       <h2 class="recommend-title">Recomendadas para ti</h2>
       <a class="see-all-link" href="#">Ver todos los cursos &rarr;</a>
     </div>
+
     <div class="recommend-cards-row">
-      <div class="recommend-card purple">
-        <div class="recommend-card-title">Curso de lenguaje de señas</div>
-        <div class="recommend-card-info">20 Lecciones · 1 h 20 min</div>
-        <button class="recommend-dropdown">
-          Ver más
-          <span class="arrow">&#9660;</span>
+      <div class="recommend-card"
+        *ngFor="let card of recommendCards; let i = index; trackBy: trackByIndex"
+        [ngClass]="i % 3 === 0 ? 'purple' : i % 3 === 1 ? 'pink' : 'yellow'">
+
+        <div class="recommend-card-title">{{ card.title }}</div>
+        <div class="recommend-card-info">{{ card.info }}</div>
+
+        <button class="recommend-dropdown" (click)="toggleDropdown(i)">
+          {{ expandedIndex === i ? 'Ver menos' : 'Ver más' }}
+          <mat-icon>
+            {{ expandedIndex === i ? 'expand_less' : 'expand_more' }}
+          </mat-icon>
         </button>
-      </div>
-      <div class="recommend-card pink">
-        <div class="recommend-card-title">Curso de lenguaje de señas</div>
-        <div class="recommend-card-info">20 Lecciones · 1 h 20 min</div>
-        <button class="recommend-dropdown">
-          Ver más
-          <span class="arrow">&#9660;</span>
-        </button>
-      </div>
-      <div class="recommend-card yellow">
-        <div class="recommend-card-title">Curso de lenguaje de señas</div>
-        <div class="recommend-card-info">20 Lecciones · 1 h 20 min</div>
-        <button class="recommend-dropdown">
-          Ver más
-          <span class="arrow">&#9660;</span>
-        </button>
+
+        <div class="recommend-dropdown-content"
+          *ngIf="expandedIndex === i">
+          <p>{{ card.details }}</p>
+        </div>
       </div>
     </div>
   </section>
+
 </div>

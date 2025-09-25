@@ -1,62 +1,75 @@
 import { Component, ViewChild, ElementRef, inject, OnInit } from '@angular/core';
 import { DatePipe, CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import { Api, CompletedCourse } from '../services/api'; // importamos el nuevo tipo
+import { Api, CompletedCourse } from '../services/api';
+
+interface Certificate {
+  title: string;
+  date: string;
+  description: string;
+  image: string;
+  organization: string;
+  user: string;
+  type: string;
+  signature1: string;
+  signature2: string;
+  url: string;
+}
 
 @Component({
   selector: 'app-certificates',
   standalone: true,
   templateUrl: './certificates.html',
   styleUrls: ['./certificates.css'],
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule, DatePipe, FormsModule], // <-- FormsModule para ngModel
 })
 export class Certificates implements OnInit {
   private api = inject(Api);
 
-  certificates: any[] = []; 
-  selectedCertificate: any = null;
+  certificates: Certificate[] = [];
+  selectedCertificate: Certificate | null = null;
   activeFormat: 'pdf' | 'png' | 'jpg' | null = null;
+
+  // --- Para enviar email ---
+  toEmail = '';            // mail ingresado por el usuario
+  sending = false;         // estado de envío (opcional, para deshabilitar botón)
 
   @ViewChild('certificateBox', { static: false })
   certificateBoxRef!: ElementRef;
 
   ngOnInit(): void {
-    const userId = 'bb1ec047-cba7-44dc-9924-42f4666f6a57'; // ID de usuario fijo para este ejemplo
+    const userId = 'bb1ec047-cba7-44dc-9924-42f4666f6a57'; // reemplazar por real
     this.api.getCompletedCourses(userId).subscribe({
       next: (courses: CompletedCourse[]) => {
-        
         this.certificates = courses.map(c => ({
           title: c.courseName,
           date: c.lastUpdated,
-          description: '', // si en el futuro hay descripción
-          image: 'assets/certificates/basic.png', // placeholder si tenés plantillas
+          description: '',
+          image: 'assets/certificates/basic.png',
           organization: 'assets/eldes.png',
           user: c.userName,
           type: '',
           signature1: 'assets/signatures/firma1.png',
           signature2: 'assets/signatures/firma2.png',
-          url: `https://miapp.com/certificados/${c.courseId}` // URL pública por curso
+          url: `https://miapp.com/certificados/${c.courseId}`
         }));
-
-        // seleccionar el primero por defecto
-        if (this.certificates.length > 0) {
-          this.selectedCertificate = this.certificates[0];
-        }
+        this.selectedCertificate = this.certificates[0] ?? null;
       },
-      error: (err) => {
-        console.error('Error cargando cursos completados:', err);
-      }
+      error: (err) => console.error('Error cargando cursos completados:', err)
     });
   }
 
-  selectCertificate(cert: any) {
+  selectCertificate(cert: Certificate) {
     this.selectedCertificate = cert;
     this.activeFormat = null;
   }
 
   async download(format: 'pdf' | 'png' | 'jpg') {
+    if (!this.selectedCertificate || !this.certificateBoxRef) return;
     this.activeFormat = format;
+
     const element = this.certificateBoxRef.nativeElement;
     const canvas = await html2canvas(element, { scale: 2 });
 
@@ -82,6 +95,7 @@ export class Certificates implements OnInit {
   }
 
   share(platform: 'linkedin' | 'facebook') {
+    if (!this.selectedCertificate) return;
     const payload = {
       nombre: this.selectedCertificate.user,
       nombreCurso: this.selectedCertificate.title,
@@ -89,20 +103,47 @@ export class Certificates implements OnInit {
         [platform]: this.selectedCertificate.url,
       },
     };
-
     this.api.shareCertificate(payload).subscribe({
       next: (res) => {
         const shareUrl = res[platform];
-        if (shareUrl) {
-          window.open(shareUrl, '_blank');
-        } else {
-          alert('No se pudo generar el link para compartir');
-        }
+        if (shareUrl) window.open(shareUrl, '_blank');
+        else alert(`No se pudo generar el link para compartir en ${platform}`);
       },
       error: (err) => {
         console.error('Error al compartir certificado', err);
         alert('Error al compartir el certificado');
       },
+    });
+  }
+
+  // ----------------------------
+  //        FALTA: send()
+  // ----------------------------
+  send() {
+    if (!this.selectedCertificate) {
+      alert('Primero seleccioná un certificado.');
+      return;
+    }
+    const email = this.toEmail.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert('Ingresá un email válido.');
+      return;
+    }
+
+    const userName = this.selectedCertificate.user;   // dinámico desde el certificado
+    const courseName = this.selectedCertificate.title; // dinámico desde el certificado
+
+    this.sending = true;
+    this.api.sendEmail(email, userName, courseName).subscribe({
+      next: () => {
+        this.sending = false;
+        alert('Correo enviado correctamente ✅');
+      },
+      error: (err) => {
+        this.sending = false;
+        console.error('Error al enviar correo', err);
+        alert('No se pudo enviar el correo.');
+      }
     });
   }
 }

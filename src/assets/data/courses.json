@@ -1,0 +1,198 @@
+{
+  "novedades": [
+    {
+      "title": "Alfabeto Dactilológico",
+      "description": "Aprendé el abecedario en señas y cómo deletrear palabras.",
+      "difficulty": "Principiante",
+      "lessons": 12,
+      "hours": "50min",
+      "event": "Disponible ahora",
+      "tag1": "Básico",
+      "tag2": "Fundamentos",
+      "tag3": "Práctico",
+      "image": "assets/cards/lenguaje-de-senas-mano-mostrando-la-letra.webp"
+    },
+    {
+      "title": "Números en Lengua de Señas",
+      "description": "Comunicá cantidades, precios, fechas y edades.",
+      "difficulty": "Principiante",
+      "lessons": 10,
+      "hours": "45min",
+      "event": "Disponible ahora",
+      "tag1": "Numeración",
+      "tag2": "Básico",
+      "tag3": "Práctico",
+      "image": "assets/cards/una-nina-que-muestra-gesto-de-saludo-de-tres-dedos.webp"
+    },
+    {
+      "title": "Colores y Objetos",
+      "description": "Aprendé a describir el mundo con señas de colores y formas.",
+      "difficulty": "Principiante",
+      "lessons": 15,
+      "hours": "1h 10min",
+      "event": "Nuevo módulo disponible",
+      "tag1": "Visual",
+      "tag2": "Descriptivo",
+      "tag3": "Básico",
+      "image": "assets/cards/tarjetas-de-notas-adhesivas-y-herramientas-escolares-y-papel-arcoiris.webp"
+    },
+    {
+      "title": "Expresiones Cotidianas",
+      "description": "Saludos, presentaciones y frases de uso diario.",
+      "difficulty": "Principiante",
+      "lessons": 14,
+      "hours": "1h",
+      "event": "Disponible ahora",
+      "tag1": "Social",
+      "tag2": "Conversación",
+      "tag3": "Práctico",
+      "image": "assets/cards/vista-frontal-del-hombre-usando-lenguaje-de-senas.webp"
+    },
+    {
+      "title": "Familia y Relaciones",
+      "description": "Palabras y expresiones para hablar de vínculos familiares.",
+      "difficulty": "Principiante",
+      "lessons": 12,
+      "hours": "55min",
+      "event": "Disponible ahora",
+      "tag1": "Social",
+      "tag2": "Comunidad",
+      "tag3": "Práctico",
+      "image": "assets/cards/endecha-plana-de-hermosa-casa-bodegon-familia.webp"
+    },
+    {
+      "title": "Tiempos Verbales",
+      "description": "Presente, pasado y futuro en la comunicación en señas.",
+      "difficulty": "Intermedio",
+      "lessons": 18,
+      "hours": "1h 30min",
+      "event": "Clases nuevas cada semana",
+      "tag1": "Gramática",
+      "tag2": "Verbos",
+      "tag3": "Intermedio",
+      "image": "assets/cards/mujer-sonriente-comunicandose-traves-del-lenguaje-de-senas-mientras-esta-al-aire-libre.webp"
+    },
+    {
+      "title": "Emociones y Estados",
+      "description": "Transmití sentimientos y estados de ánimo en señas.",
+      "difficulty": "Intermedio",
+      "lessons": 16,
+      "hours": "1h 20min",
+      "event": "Disponible ahora",
+      "tag1": "Emociones",
+      "tag2": "Conversación",
+      "tag3": "Práctico",
+      "image": "assets/cards/notas-papel-colores-dibujos-diferentes-emociones-faciales-sobre-fondo-blanco_625455-3191.webp"
+    },
+    {
+      "title": "Acciones y Verbos Comunes",
+      "description": "Señas para actividades diarias: comer, trabajar, estudiar.",
+      "difficulty": "Intermedio",
+      "lessons": 20,
+      "hours": "1h 45min",
+      "event": "Disponible ahora",
+      "tag1": "Gramática",
+      "tag2": "Acciones",
+      "tag3": "Práctico",
+      "image": "assets/cards/mujeres-adultas-que-se-comunican-traves-del-lenguaje-de-senas.webp"
+    },
+    {
+      "title": "Ámbito Escolar",
+      "description": "Vocabulario para materias, clases y vida escolar.",
+      "difficulty": "Intermedio",
+      "lessons": 18,
+      "hours": "1h 30min",
+      "event": "Disponible ahora",
+      "tag1": "Educativo",
+      "tag2": "Contexto",
+      "tag3": "Práctico",
+      "image": "assets/cards/ninos-en-el-aula-tomando-clases-de-ingles.webp"
+    },
+    {
+      "title": "Ámbito Laboral",
+      "description": "Señas útiles para entrevistas, reuniones y el trabajo diario.",
+      "difficulty": "Intermedio",
+      "lessons": 22,
+      "hours": "2h",
+      "event": "Ruta profesional",
+      "tag1": "Laboral",
+      "tag2": "Profesional",
+      "tag3": "Aplicado",
+      "image": "assets/cards/mujer-de-negocios-dos-que-trabajan-en-oficina-con-la-tablilla-digital.webp"
+    },
+    {
+      "title": "Narración y Relatos",
+      "description": "Contá historias, experiencias y anécdotas en señas.",
+      "difficulty": "Avanzado",
+      "lessons": 25,
+      "hours": "2h 20min",
+      "event": "Sesiones en vivo",
+      "tag1": "Narración",
+      "tag2": "Avanzado",
+      "tag3": "Expresivo",
+      "image": "assets/cards/mujer-ensenando-el-lenguaje-de-senas.webp"
+    },
+    {
+      "title": "Señas para Viajes y Transporte",
+      "description": "Aprendé a comunicarte en aeropuertos, estaciones y medios de transporte.",
+      "difficulty": "Avanzado",
+      "lessons": 20,
+      "hours": "2h",
+      "event": "Disponible ahora",
+      "tag1": "Viajes",
+      "tag2": "Transporte",
+      "tag3": "Avanzado",
+      "image": "assets/cards/mujeres-adultas-que-comunican-traves-lenguaje-senas_23-2148590339.webp"
+    }
+  ],
+  "continuar": [
+    {
+      "title": "Señas para Viajes y Transporte",
+      "description": "Aprendé a comunicarte en aeropuertos, estaciones y medios de transporte.",
+      "difficulty": "Avanzado",
+      "lessons": 20,
+      "hours": "2h",
+      "event": "Disponible ahora",
+      "tag1": "Viajes",
+      "tag2": "Transporte",
+      "tag3": "Avanzado",
+      "image": "assets/cards/mujeres-adultas-que-comunican-traves-lenguaje-senas_23-2148590339.webp"
+    },
+    {
+      "title": "Acciones y Verbos Comunes",
+      "description": "Señas para actividades diarias: comer, trabajar, estudiar.",
+      "difficulty": "Intermedio",
+      "lessons": 20,
+      "hours": "1h 45min",
+      "event": "Disponible ahora",
+      "tag1": "Gramática",
+      "tag2": "Acciones",
+      "tag3": "Práctico",
+      "image": "assets/cards/mujeres-adultas-que-se-comunican-traves-del-lenguaje-de-senas.webp"
+    },
+    {
+      "title": "Colores y Objetos",
+      "description": "Aprendé a describir el mundo con señas de colores y formas.",
+      "difficulty": "Principiante",
+      "lessons": 15,
+      "hours": "1h 10min",
+      "event": "Nuevo módulo disponible",
+      "tag1": "Visual",
+      "tag2": "Descriptivo",
+      "tag3": "Básico",
+      "image": "assets/cards/tarjetas-de-notas-adhesivas-y-herramientas-escolares-y-papel-arcoiris.webp"
+    },
+    {
+      "title": "Tiempos Verbales",
+      "description": "Presente, pasado y futuro en la comunicación en señas.",
+      "difficulty": "Intermedio",
+      "lessons": 18,
+      "hours": "1h 30min",
+      "event": "Clases nuevas cada semana",
+      "tag1": "Gramática",
+      "tag2": "Verbos",
+      "tag3": "Intermedio",
+      "image": "assets/cards/mujer-sonriente-comunicandose-traves-del-lenguaje-de-senas-mientras-esta-al-aire-libre.webp"
+    }
+  ]
+}

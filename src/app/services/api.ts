@@ -63,4 +63,23 @@ export class Api {
       `${this.baseUrl}/certificate/completed-courses/${userId}`
     );
   }
+
+  sendEmail(toEmail: string, userName: string, courseName: string) {
+    const payload = {
+      toEmail: toEmail,
+      toName: userName, // puede ser dinámico o fijo
+      fromEmail: 'bautidenueve@gmail.com',
+      fromName: 'Eldes Notificaciones',
+      templateId: 'd-3905d390a8164a7caa4ca54cb81e520a',
+      dynamicTemplateData: {
+        user_name: userName,
+        course_name: courseName,
+        link_certificate: 'https://curso.somoseldes.com/',
+        link_courses: 'https://www.google.com',
+        unsubscribe_link: 'https://www.google.com/unsuscribe',
+      },
+    };
+
+    return this.http.post('http://localhost:5283/send-email', payload);
+  }
 }

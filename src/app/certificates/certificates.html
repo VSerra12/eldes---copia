@@ -14,6 +14,19 @@
             {{ cert.title }}
           </button>
         </div>
+        <div class="send-email-container">
+          <h3>Enviar certificado por correo</h3>
+          <div>
+            <input
+              type="email"
+              [(ngModel)]="toEmail"
+              placeholder="Ingresa el correo"
+              required />
+
+            <button (click)="send()">Enviar</button>
+
+          </div>
+        </div>
 
         <div>
 
@@ -53,11 +66,13 @@
             </h3>
             <div class="share-buttons">
               <button (click)="share('linkedin')">
-                <img src="../../assets/linkedin-logo.png" alt="LinkedIn logo" class="linkedin-logo">
+                <img src="../../assets/linkedin-logo.png" alt="LinkedIn logo"
+                  class="linkedin-logo">
                 LinkedIn
               </button>
               <button (click)="share('facebook')">
-                <img src="../../assets/facebook-logo.png" alt="Facebook logo" class="facebook-logo">
+                <img src="../../assets/facebook-logo.png" alt="Facebook logo"
+                  class="facebook-logo">
                 Facebook
               </button>
 
