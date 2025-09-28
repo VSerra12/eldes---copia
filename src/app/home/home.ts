@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 interface Curso {
   title: string;
@@ -15,18 +16,31 @@ interface Curso {
   tag2: string;
   tag3: string;
   image: string;
-  loaded?: boolean; // 👈 agregado para controlar la carga
+  loaded?: boolean; 
+}
+
+interface Recomendado {
+  title: string;
+  info: string;
+  description: string;
+  lessons: number;
+  difficulty: string;
+  hours: string;
+  tag1: string;
+  tag2: string;
+  tag3: string;
 }
 
 interface CoursesData {
   novedades: Curso[];
   continuar: Curso[];
+  recomendados: Recomendado[];
 }
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, MatExpansionModule],
   templateUrl: './home.html',
   styleUrls: ['./home.css'],
 })
@@ -34,6 +48,7 @@ export class Home implements OnInit {
   // === Datos ===
   items: Curso[] = [];
   continueItems: Curso[] = [];
+  recommendCards: Recomendado[] = [];
 
   // === Estado Novedades ===
   currentIndex = 0;
@@ -50,24 +65,6 @@ export class Home implements OnInit {
   allImagesLoadedContinue = false;
   continueStartIndex = 0;
 
-  // === Recomendadas ===
-  recommendCards = [
-    {
-      title: 'Curso de lenguaje de señas básico',
-      info: '20 Lecciones · 1 h 20 min',
-      details: 'Aprendé los fundamentos del lenguaje de señas.',
-    },
-    {
-      title: 'Curso avanzado de señas',
-      info: '30 Lecciones · 2 h 10 min',
-      details: 'Desarrollá fluidez en comunicación avanzada en señas.',
-    },
-    {
-      title: 'Curso express',
-      info: '10 Lecciones · 40 min',
-      details: 'Una introducción rápida para situaciones cotidianas.',
-    },
-  ];
 
   expandedIndex: number | null = null;
 
@@ -75,9 +72,9 @@ export class Home implements OnInit {
 
   ngOnInit(): void {
     this.loadCourses().subscribe((data: CoursesData) => {
-      // Inicializamos con loaded = false
       this.items = data.novedades.map((c) => ({ ...c, loaded: false }));
       this.continueItems = data.continuar.map((c) => ({ ...c, loaded: false }));
+      this.recommendCards = data.recomendados;
     });
   }
 
@@ -112,9 +109,7 @@ export class Home implements OnInit {
 
   get visibleContinueItems(): Curso[] {
     const total = this.continueItems.length;
-    // Si hay menos de 3, muestra todas
     if (total <= 3) return this.continueItems;
-    // Si el slide se pasa del final, toma desde el principio
     let items = [];
     for (let i = 0; i < 3; i++) {
       items.push(this.continueItems[(this.continueStartIndex + i) % total]);
@@ -122,9 +117,13 @@ export class Home implements OnInit {
     return items;
   }
 
+  get visibleRecommendCards(): Recomendado[] {
+    return this.recommendCards;
+  }
+
   // === Novedades ===
   prev(): void {
-    if (!this.allImagesLoadedNovedades) return; // 👈 espera que carguen
+    if (!this.allImagesLoadedNovedades) return; // espera que carguen
     this.animationDirectionNovedades = 'left';
     requestAnimationFrame(() => {
       if (this.currentIndex === 0) {
@@ -138,7 +137,7 @@ export class Home implements OnInit {
   }
 
   next(): void {
-    if (!this.allImagesLoadedNovedades) return; // 👈 espera que carguen
+    if (!this.allImagesLoadedNovedades) return; // espera que carguen
     this.animationDirectionNovedades = 'right';
     requestAnimationFrame(() => {
       if (this.currentIndex + this.itemsPerPage >= this.items.length) {

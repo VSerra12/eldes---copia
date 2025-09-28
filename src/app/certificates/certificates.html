@@ -4,81 +4,85 @@
     <div class="certificates-container">
 
       <div class="certificates-list">
-        <h2 class="certificates-title">Cursos completados</h2>
-        <!-- Lista de certificados -->
-        <div class="buttons-list">
-          <button
-            *ngFor="let cert of certificates"
-            (click)="selectCertificate(cert)"
-            [ngClass]="{ 'selected': selectedCertificate === cert }">
-            {{ cert.title }}
-          </button>
-        </div>
-        <div class="send-email-container">
-          <h3>Enviar certificado por correo</h3>
-          <div>
-            <input
-              type="email"
-              [(ngModel)]="toEmail"
-              placeholder="Ingresa el correo"
-              required />
-
-            <button (click)="send()">Enviar</button>
-
-          </div>
-        </div>
-
         <div>
 
-          <!-- Opciones de descarga -->
-          <div class="download-options">
-            <h3>
-              Opciones de descarga
-              <span class="material-symbols-outlined">download</span>
-            </h3>
-            <div class="download-buttons">
-              <button
-                (click)="download('pdf')"
-                [ngClass]="{ 'selected': activeFormat === 'pdf' }">
-                <span class="material-symbols-outlined">picture_as_pdf</span>
-                PDF
-              </button>
-
-              <button
-                (click)="download('png')"
-                [ngClass]="{ 'selected': activeFormat === 'png' }">
-                <span class="material-symbols-outlined">image</span>
-                PNG
-              </button>
-
-              <button
-                (click)="download('jpg')"
-                [ngClass]="{ 'selected': activeFormat === 'jpg' }">
-                <span class="material-symbols-outlined">image</span>
-                JPG
-              </button>
-            </div>
+          <h2 class="certificates-title">Cursos completados</h2>
+          <!-- Lista de certificados -->
+          <div class="buttons-list">
+            <button
+              *ngFor="let cert of certificates"
+              (click)="selectCertificate(cert)"
+              [ngClass]="{ 'selected': selectedCertificate === cert }">
+              {{ cert.title }}
+            </button>
           </div>
-          <div class="share-options">
-            <h3>
-              Compartir certificado
-              <span class="material-symbols-outlined">share</span>
-            </h3>
-            <div class="share-buttons">
-              <button (click)="share('linkedin')">
-                <img src="../../assets/linkedin-logo.png" alt="LinkedIn logo"
-                  class="linkedin-logo">
-                LinkedIn
-              </button>
-              <button (click)="share('facebook')">
-                <img src="../../assets/facebook-logo.png" alt="Facebook logo"
-                  class="facebook-logo">
-                Facebook
-              </button>
+        </div>
+        <div>
+          <div class="send-email-container">
+            <h3>Enviar certificado por correo</h3>
+            <div>
+              <input
+                type="email"
+                [(ngModel)]="toEmail"
+                placeholder="Ingresa el correo"
+                required />
+
+              <button (click)="send()">Enviar</button>
 
             </div>
           </div>
 
+          <div>
+
+            <!-- Opciones de descarga -->
+            <div class="download-options">
+              <h3>
+                Opciones de descarga
+                <span class="material-symbols-outlined">download</span>
+              </h3>
+              <div class="download-buttons">
+                <button
+                  (click)="download('pdf')"
+                  [ngClass]="{ 'selected': activeFormat === 'pdf' }">
+                  <span class="material-symbols-outlined">picture_as_pdf</span>
+                  PDF
+                </button>
+
+                <button
+                  (click)="download('png')"
+                  [ngClass]="{ 'selected': activeFormat === 'png' }">
+                  <span class="material-symbols-outlined">image</span>
+                  PNG
+                </button>
+
+                <button
+                  (click)="download('jpg')"
+                  [ngClass]="{ 'selected': activeFormat === 'jpg' }">
+                  <span class="material-symbols-outlined">image</span>
+                  JPG
+                </button>
+              </div>
+            </div>
+            <div class="share-options">
+              <h3>
+                Compartir certificado
+                <span class="material-symbols-outlined">share</span>
+              </h3>
+              <div class="share-buttons">
+                <button (click)="share('linkedin')">
+                  <img src="../../assets/linkedin-logo.png" alt="LinkedIn logo"
+                    class="linkedin-logo">
+                  LinkedIn
+                </button>
+                <button (click)="share('facebook')">
+                  <img src="../../assets/facebook-logo.png" alt="Facebook logo"
+                    class="facebook-logo">
+                  Facebook
+                </button>
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="preview-container">

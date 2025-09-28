@@ -194,5 +194,40 @@
       "tag3": "Intermedio",
       "image": "assets/cards/mujer-sonriente-comunicandose-traves-del-lenguaje-de-senas-mientras-esta-al-aire-libre.webp"
     }
-  ]
+  ],
+  "recomendados": [
+  {
+    "title": "Vocabulario Básico",
+    "info": "Palabras y frases esenciales para principiantes.",
+    "description": "Este curso te enseña las señas más usadas para comunicarte en situaciones simples: saludos, presentaciones y objetos comunes. Ideal para comenzar desde cero.",
+    "lessons": 12,
+    "difficulty": "Principiante",
+    "hours": "50min",
+    "tag1": "Básico",
+    "tag2": "Fundamentos",
+    "tag3": "Práctico"
+  },
+  {
+    "title": "Frases Comunes",
+    "info": "Expresiones útiles para la comunicación diaria.",
+    "description": "Aprendé a expresar frases cotidianas como pedir ayuda, dar indicaciones y mantener conversaciones básicas en lengua de señas.",
+    "lessons": 14,
+    "difficulty": "Principiante",
+    "hours": "1h",
+    "tag1": "Básico",
+    "tag2": "Conversación",
+    "tag3": "Práctico"
+  },
+  {
+    "title": "Gramática Fundamental",
+    "info": "Reglas básicas para estructurar oraciones correctamente.",
+    "description": "Descubrí cómo funcionan las estructuras gramaticales en lengua de señas: orden de las palabras, uso de expresiones faciales y marcadores.",
+    "lessons": 16,
+    "difficulty": "Intermedio",
+    "hours": "1h 15min",
+    "tag1": "Básico",
+    "tag2": "Gramática",
+    "tag3": "Fundamentos"
+  }
+]
 }

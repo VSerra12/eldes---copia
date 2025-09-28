@@ -23,7 +23,7 @@ interface Certificate {
   standalone: true,
   templateUrl: './certificates.html',
   styleUrls: ['./certificates.css'],
-  imports: [CommonModule, DatePipe, FormsModule], // <-- FormsModule para ngModel
+  imports: [CommonModule, DatePipe, FormsModule], 
 })
 export class Certificates implements OnInit {
   private api = inject(Api);
@@ -34,7 +34,7 @@ export class Certificates implements OnInit {
 
   // --- Para enviar email ---
   toEmail = '';            // mail ingresado por el usuario
-  sending = false;         // estado de envío (opcional, para deshabilitar botón)
+  sending = false;         
 
   @ViewChild('certificateBox', { static: false })
   certificateBoxRef!: ElementRef;
@@ -116,9 +116,6 @@ export class Certificates implements OnInit {
     });
   }
 
-  // ----------------------------
-  //        FALTA: send()
-  // ----------------------------
   send() {
     if (!this.selectedCertificate) {
       alert('Primero seleccioná un certificado.');
@@ -130,9 +127,8 @@ export class Certificates implements OnInit {
       return;
     }
 
-    const userName = this.selectedCertificate.user;   // dinámico desde el certificado
-    const courseName = this.selectedCertificate.title; // dinámico desde el certificado
-
+    const userName = this.selectedCertificate.user;   
+    const courseName = this.selectedCertificate.title;
     this.sending = true;
     this.api.sendEmail(email, userName, courseName).subscribe({
       next: () => {

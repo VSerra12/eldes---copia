@@ -1,9 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { Api } from '../services/api';
+import { CommonModule } from '@angular/common';
 
 interface RankingEntry {
   rank: number;

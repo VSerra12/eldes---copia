@@ -15,11 +15,16 @@
                 class="logo-utn ng-star-inserted" />
         </div>
         <div class="nav-links">
-            <a routerLink="/home" class="navs" routerLinkActive="nav-active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
-            <a routerLink="/ranking" class="navs" routerLinkActive="nav-active">Ranking</a>
+            <a routerLink="/" class="navs" routerLinkActive="nav-active"
+                [routerLinkActiveOptions]="{ exact: true }">
+                Inicio
+            </a>
+            <a routerLink="/ranking" class="navs"
+                routerLinkActive="nav-active">Ranking</a>
             <!-- Botón de configuración -->
             <button mat-icon-button
-                [matMenuTriggerFor]="menuConfiguracion" class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base">
+                [matMenuTriggerFor]="menuConfiguracion"
+                class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base">
                 <mat-icon>settings</mat-icon>
             </button>
 
@@ -36,12 +41,14 @@
             </mat-menu>
 
             <!-- Icono que abre el menú -->
-            <button mat-icon-button [matMenuTriggerFor]="menuUsuario" class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base">
+            <button mat-icon-button [matMenuTriggerFor]="menuUsuario"
+                class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base">
                 <mat-icon>person_outline</mat-icon>
             </button>
             <!-- Menú desplegable -->
             <mat-menu #menuUsuario="matMenu">
-                <button mat-menu-item [routerLink]="'/certificates'" routerLinkActive="nav-active">
+                <button mat-menu-item [routerLink]="'/certificates'"
+                    routerLinkActive="nav-active">
                     <mat-icon>school</mat-icon>
                     <span>Mis certificados</span>
                 </button>

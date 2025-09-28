@@ -12,15 +12,15 @@
         [ngClass]="{'slide-left': animationDirectionNovedades === 'left',
                     'slide-right': animationDirectionNovedades === 'right'}">
         <div class="card"
-             *ngFor="let item of visibleItems; trackBy: trackByIndex">
+          *ngFor="let item of visibleItems; trackBy: trackByIndex">
           <div class="image-wrapper">
             <div class="image-loader" *ngIf="!item.loaded"></div>
             <img [src]="item.image"
-                 [alt]="item.title"
-                 [class.card-img]="true"
-                 [class.loaded]="item.loaded"
-                 loading="lazy"
-                 (load)="onImageLoad(item, 'novedades')">
+              [alt]="item.title"
+              [class.card-img]="true"
+              [class.loaded]="item.loaded"
+              loading="lazy"
+              (load)="onImageLoad(item, 'novedades')">
           </div>
 
           <h3 class="card-title">{{ item.title }}</h3>
@@ -58,15 +58,15 @@
             [ngClass]="{'slide-left': animationDirectionContinue === 'left',
                         'slide-right': animationDirectionContinue === 'right'}">
             <div class="card"
-                 *ngFor="let course of visibleContinueItems; trackBy: trackByIndex">
+              *ngFor="let course of visibleContinueItems; trackBy: trackByIndex">
               <div class="image-wrapper">
                 <div class="image-loader" *ngIf="!course.loaded"></div>
                 <img [src]="course.image"
-                     [alt]="course.title"
-                     [class.card-img]="true"
-                     [class.loaded]="course.loaded"
-                     loading="lazy"
-                     (load)="onImageLoad(course, 'continuar')">
+                  [alt]="course.title"
+                  [class.card-img]="true"
+                  [class.loaded]="course.loaded"
+                  loading="lazy"
+                  (load)="onImageLoad(course, 'continuar')">
               </div>
 
               <h3 class="card-title">{{ course.title }}</h3>
@@ -108,9 +108,16 @@
         *ngFor="let card of recommendCards; let i = index; trackBy: trackByIndex"
         [ngClass]="i % 3 === 0 ? 'purple' : i % 3 === 1 ? 'pink' : 'yellow'">
 
-        <div class="recommend-card-title">{{ card.title }}</div>
-        <div class="recommend-card-info">{{ card.info }}</div>
+        <div class="recommend-card-content">
+          <div class="recommend-card-title">{{ card.title }}</div>
+          <div class="recommend-card-description">{{ card.info}}</div>
+          <div class="recommend-card-info">
+            <span>{{ card.lessons }} lecciones</span> •
+            <span>{{ card.hours }}</span>
+          </div>
+        </div>
 
+        <!-- Botón -->
         <button class="recommend-dropdown" (click)="toggleDropdown(i)">
           {{ expandedIndex === i ? 'Ver menos' : 'Ver más' }}
           <mat-icon>
@@ -118,9 +125,15 @@
           </mat-icon>
         </button>
 
-        <div class="recommend-dropdown-content"
-          *ngIf="expandedIndex === i">
-          <p>{{ card.details }}</p>
+        <div class="recommend-overlay"
+          [class.show]="expandedIndex === i">
+          <p>{{ card.description }}</p>
+          <div class="tags">
+            <span>{{ card.difficulty }} •</span>
+            <span class="tag">{{ card.tag1 }} •</span>
+            <span class="tag">{{ card.tag2 }} •</span>
+            <span class="tag">{{ card.tag3 }}</span>
+          </div>
         </div>
       </div>
     </div>

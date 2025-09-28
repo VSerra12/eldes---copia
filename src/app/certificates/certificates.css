@@ -1,8 +1,7 @@
 .certificates-page {
   padding-left: 3rem;
   box-sizing: border-box;
-
-  min-height: 100vh; /* Asegura que ocupe al menos toda la altura de la ventana */
+  min-height: 100vh;
 }
 
 .main-container {
@@ -26,22 +25,22 @@
   justify-content: center;
 }
 
-/* =========================
-   Lista de certificados y botones
-   ========================= */
+/* ===Lista de certificados y botones==== */
 .certificates-title {
   font-size: 18px;
   font-weight: 900;
   color: #333;
-  margin: 0;
+  margin: 0 0 2rem 0;
   text-align: left;
-  margin-bottom: 2rem;
 }
 
 .certificates-list {
   width: 20%;
   background-color: #ffffff;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .buttons-list {
@@ -49,7 +48,6 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height: 50%;
 }
 
 .buttons-list button {
@@ -76,9 +74,7 @@
   transform: translateY(-2px);
 }
 
-/* =========================
-   Opciones de descarga
-   ========================= */
+/* ===Opciones de descarga==== */
 .download-options {
   margin-top: 1rem;
   text-align: center;
@@ -141,9 +137,7 @@
   font-size: 20px;
 }
 
-/* =========================
-   Certificado: contenedor principal
-   ========================= */
+/* ===Certificado: contenedor principal=== */
 .certificate-detail-container {
   width: 1000px;
   min-width: 1000px;
@@ -173,12 +167,10 @@
   border-radius: 16px;
   display: inline-block;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.414);
-  box-sizing: border-box; /* Asegura que el padding no agrande el box */
+  box-sizing: border-box;
 }
 
-/* =========================
-   Certificado: detalle y contenido
-   ========================= */
+/* ===Certificado: detalle y contenido=== */
 .certificate-detail {
   display: flex;
   flex-direction: column;
@@ -190,7 +182,7 @@
   font-weight: bold;
   width: 100%;
   height: 100%;
-  box-sizing: border-box; /* Importante para evitar que se coma el borde */
+  box-sizing: border-box;
 }
 
 .certificate-detail img {
@@ -224,9 +216,7 @@
   font-size: 20px;
 }
 
-/* =========================
-   Certificado: firmas
-   ========================= */
+/* ===Certificado: firmas=== */
 .signatures {
   display: flex;
   justify-content: space-between;
@@ -240,7 +230,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 150px; /* adjust as needed */
+  width: 150px;
 }
 
 .signature-line {
@@ -260,9 +250,7 @@
   word-break: break-word;
 }
 
-/* =========================
-   Certificado: header
-   ========================= */
+/* ===Certificado: header=== */
 .header {
   position: relative;
   width: 100%;
@@ -320,9 +308,7 @@
   object-fit: contain;
 }
 
-/* =========================
-   Opciones de compartir
-   ========================= */
+/* ===Opciones de compartir=== */   
 .share-options {
   margin-top: 1rem;
   text-align: center;

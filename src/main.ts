@@ -12,7 +12,7 @@ registerLocaleData(localeEs, 'es-AR');
 bootstrapApplication(App, {
   providers: [
     provideHttpClient(),
-    provideRouter(routes), // 💥 esto habilita ActivatedRoute y routing
+    provideRouter(routes), 
     provideHttpClient(),
     { provide: LOCALE_ID, useValue: 'es-AR' } 
   ]

@@ -3,8 +3,7 @@
    ====================== */
 :host {
   display: block;
-  min-height: 100vh;
-  padding: 32px 0;
+  min-height: calc(var(--vh, 1vh) * 100);
   background-image: url("/assets/background-ranking.png");
   background-size: cover;
   background-position: center;
@@ -126,7 +125,6 @@ mat-button-toggle.mat-button-toggle-checked {
   background-color: transparent;
 }
 
-/* Encabezado de tabla: fondo gradiente continuo */
 .ranking-table-container .mat-mdc-header-row {
   background: linear-gradient(90deg, #9b5de5, #3ba8f6);
   color: #fff;
@@ -150,7 +148,7 @@ mat-button-toggle.mat-button-toggle-checked {
   font-size: 1rem;
   padding: 0.9rem 0.6rem;
   margin: 0px 4px;
-  text-shadow: 0 1px 2px rgba(0,0,0,.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .ranking-table-container
@@ -177,17 +175,12 @@ mat-button-toggle.mat-button-toggle-checked {
 
 .mat-column-rank {
   padding-left: 1.2rem;
-}
-.mat-column-lessons {
-  padding-right: 1.2rem;
-}
-
-.mat-column-rank {
   width: 12%;
   text-align: center;
   font-size: 1.25rem;
 }
 .mat-column-lessons {
+  padding-right: 1.2rem;
   width: 18%;
   text-align: center;
 }

@@ -27,19 +27,18 @@ export interface ShareCertificateRequest {
   redesYUrls: { [key: string]: string };
 }
 
-// ✅ Nueva interface para el endpoint de cursos completados
 export interface CompletedCourse {
   courseId: string;
   courseName: string;
   userName: string;
-  lastUpdated: string; // Podés mapearlo como Date después si querés
+  lastUpdated: string; 
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class Api {
-  private baseUrl = 'http://localhost:5283'; // Cambiá por la URL real de tu backend
+  private baseUrl = 'http://localhost:5283'; 
 
   constructor(private http: HttpClient) {}
 
@@ -67,7 +66,7 @@ export class Api {
   sendEmail(toEmail: string, userName: string, courseName: string) {
     const payload = {
       toEmail: toEmail,
-      toName: userName, // puede ser dinámico o fijo
+      toName: userName, 
       fromEmail: 'bautidenueve@gmail.com',
       fromName: 'Eldes Notificaciones',
       templateId: 'd-3905d390a8164a7caa4ca54cb81e520a',

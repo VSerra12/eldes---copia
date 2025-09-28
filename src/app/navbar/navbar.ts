@@ -35,6 +35,5 @@ export class Navbar {
       'Ayuda inteligente:',
       this.ayudaInteligente ? 'activada' : 'desactivada'
     );
-    // Aquí podés guardar la preferencia en localStorage o llamando a un servicio
   }
 }

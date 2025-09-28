@@ -5,7 +5,6 @@
   background-image: url("/assets/background-ranking.png");
   background-size: cover;
   background-position: center;
-  padding-bottom: 32px;
 }
 
 section {
@@ -26,6 +25,18 @@ section {
   position: relative;
   padding: 20px;
   border-radius: 12px;
+  animation: fadeInUp 0.8s ease; 
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Novedades (1 fila de 3 cards) */
@@ -35,7 +46,7 @@ section {
   grid-auto-rows: 200px;
   gap: 20px;
   justify-content: center;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 /* Continuar aprendiendo (1 fila de 3 cards) */
@@ -44,7 +55,7 @@ section {
   grid-template-columns: repeat(3, 350px);
   grid-auto-rows: 180px;
   gap: 15px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 /* === CARDS === */
@@ -53,6 +64,12 @@ section {
   border-radius: 10px;
   overflow: hidden;
   background: #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
 /* Loader (spinner centrado) */
@@ -63,7 +80,7 @@ section {
   width: 40px;
   height: 40px;
   margin: -20px 0 0 -20px;
-  border: 3px solid rgba(0, 0, 0, 0.1);
+  border: 3px solid rgba(0,0,0,0.1);
   border-top: 3px solid #ff6400;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -71,9 +88,7 @@ section {
 }
 
 @keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
+  100% { transform: rotate(360deg); }
 }
 
 /* Imagen */
@@ -83,10 +98,12 @@ section {
   object-fit: cover;
   display: block;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transform: scale(1.05);
+  transition: opacity 0.6s ease, transform 0.8s ease;
 }
 .card-img.loaded {
   opacity: 1;
+  transform: scale(1);
 }
 
 /* Título encima de la imagen */
@@ -101,23 +118,25 @@ section {
   background: rgba(0, 0, 0, 0.6);
   border-radius: 6px;
   bottom: 0;
+  transition: background 0.3s ease;
+}
+.card:hover .card-title {
+  background: rgba(0,0,0,0.8);
 }
 
 /* Overlay */
 .card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 60%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 60%, rgba(0,0,0,0) 100%);
   color: #fff;
   padding: 1rem;
   font-size: 0.9rem;
   border-radius: inherit;
-
   opacity: 0;
   transform: translateY(100%);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
   z-index: 3;
-
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -130,7 +149,7 @@ section {
 .card-overlay p,
 .card-overlay span {
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.4s ease;
 }
 .card:hover .card-overlay p,
 .card:hover .card-overlay span {
@@ -144,6 +163,7 @@ section {
   gap: 4px;
   font-size: 0.85rem;
   color: #ddd;
+  transition: opacity 0.3s ease;
 }
 .continue-overlay {
   justify-content: flex-start;
@@ -164,10 +184,9 @@ section {
   justify-content: center;
   padding: 8px;
   border-radius: 100%;
-
   opacity: 0;
   transform: scale(0.8);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
   z-index: 10;
 }
 .card:hover .play-btn {
@@ -176,6 +195,7 @@ section {
 }
 .play-btn:hover {
   transform: scale(1.15);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
 /* Animaciones de slide */
@@ -199,14 +219,15 @@ section {
   align-items: center;
   justify-content: center;
   padding: 10px;
-  transition: transform 0.2s ease;
   border-radius: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .arrow:hover {
   transform: scale(1.2);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
 }
 
-/* Títulos secciones */
+/* === TÍTULOS SECCIONES === */
 .news-title::after {
   content: "";
   display: block;
@@ -215,11 +236,10 @@ section {
   background: #ff6400;
   margin-top: 6px;
 }
-.keep-learning-title{
+.keep-learning-title {
   margin-top: 6rem;
   margin-bottom: 1rem;
 }
-
 .keep-learning-title::after {
   content: "";
   display: block;
@@ -229,29 +249,35 @@ section {
   margin-top: 6px;
 }
 
-/* === OVALO === */
+/* === OVALO CONTINUAR APRENDIENDO === */
 .ovalo-blanco {
   background: #fff;
   border-radius: 100% 100% 0 0 / 60% 60% 0 0;
   padding: 0.5rem 0rem 3rem;
+  animation: fadeInUp 1s ease;
 }
 .continue-learning-box {
   padding-top: 100px;
 }
 
-/* === RECOMENDADAS === */
+/* === SECCIÓN RECOMENDADAS === */
 .recommend-section {
   background: #fff;
-  min-height: 600px;
+  min-height: 500px;
+  padding: 2rem 3rem;
+  animation: fadeInUp 1s ease;
 }
+
+
 .recommend-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
 }
+
 .recommend-title {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
   margin: 0;
   position: relative;
@@ -259,17 +285,19 @@ section {
 .recommend-title::after {
   content: "";
   display: block;
-  width: 36px;
+  width: 40px;
   height: 5px;
   background: #ffc107;
   margin-top: 6px;
+  border-radius: 3px;
 }
+
 .see-all-link {
   color: #ff812e;
   font-weight: 600;
   text-decoration: underline;
   font-size: 1rem;
-  transition: color 0.2s;
+  transition: color 0.3s ease;
 }
 .see-all-link:hover {
   color: #ff372b;
@@ -278,30 +306,66 @@ section {
 .recommend-cards-row {
   display: flex;
   gap: 2rem;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  justify-content: space-between;
 }
+
+/* === Tarjeta === */
 .recommend-card {
-  flex: 1 1 220px;
-  background: #f5f5f5;
+  width: 30%;
   border-radius: 18px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  padding: 1.5rem 1.2rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  overflow: hidden;
+  height: fit-content;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.recommend-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+.recommend-card-content {
+  padding-bottom: 1rem;
+}
+
+/* Contenido */
 .recommend-card-title {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  margin-bottom: 0.7rem;
+  color: #000;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+.recommend-card:hover .recommend-card-title {
   color: #222;
 }
-.recommend-card-info {
-  font-size: 0.98rem;
-  color: #444;
-  margin-bottom: 1.2rem;
+
+.recommend-card-description {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  transition: opacity 0.3s ease;
 }
+
+.recommend-card-info {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #fff;
+  margin-top: 1rem;
+  background-color: rgba(0, 0, 0, 0.26);
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  transition: background 0.3s ease;
+}
+.recommend-card:hover .recommend-card-info {
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+/* Botón */
 .recommend-dropdown {
   width: 100%;
   background: #fff;
@@ -316,28 +380,37 @@ section {
   justify-content: space-between;
   cursor: pointer;
   margin-top: auto;
+  z-index: 2;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
-.recommend-dropdown-content {
-  background: #fff;
-  border-radius: 0 0 12px 12px;
-  font-size: 0.95rem;
-  color: #333;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  animation: dropdown 0.3s ease;
-  width: 100%;
-}
-@keyframes dropdown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.recommend-dropdown:hover {
+  background: #f7f7f7;
+  transform: scale(1.02);
 }
 
-/* Colores disponibles */
+/* Overlay con transición */
+.recommend-overlay {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 0 1rem;
+  font-size: 0.95rem;
+  color: #333;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  transition: max-height 0.5s ease, opacity 0.4s ease, margin-top 0.3s ease,
+    padding 0.3s ease;
+}
+
+.recommend-overlay.show {
+  max-height: 250px;
+  opacity: 1;
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
 .recommend-card.purple {
   background: linear-gradient(135deg, #b39ddb 0%, #9575cd 100%);
 }
@@ -347,14 +420,28 @@ section {
 .recommend-card.yellow {
   background: linear-gradient(135deg, #ffe082 0%, #ffd54f 100%);
 }
-
-/* Colores botón según card */
 .recommend-card.purple .recommend-dropdown {
-  color: #9575cd;
+  color: #9b5de5;
 }
 .recommend-card.pink .recommend-dropdown {
   color: #f06292;
 }
 .recommend-card.yellow .recommend-dropdown {
   color: #ffd54f;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  color: #555;
+  margin-top: 0.8rem;
+  transition: opacity 0.3s ease;
+}
+.tags span {
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  background: rgba(0, 0, 0, 0.05);
 }

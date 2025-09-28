@@ -1,59 +1,133 @@
 # Eldes
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.4.
+**Eldes** es un proyecto de front-end desarrollado en **Angular**.  
+Incluye el diseño y la implementación de las siguientes secciones principales:
 
-## Development server
+- **Home**: página de inicio con la presentación general de la plataforma.  
+- **Ranking**: muestra posiciones y puntajes de usuarios, obtenidos dinámicamente.  
+- **Certificados**: sección donde se visualizan los certificados completados por el usuario.
 
-To start a local development server, run:
+El proyecto se conecta con un backend en **.NET** que expone los datos desde una base de datos en **Microsoft SQL Server**.
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 Requisitos previos
 
-## Code scaffolding
+Antes de ejecutar este proyecto, asegurate de contar con el siguiente entorno:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Frontend
+- **Node.js** >= 20  
+- **Angular CLI** 20.0.4  
+- **Angular** 20.x  
+- **Angular Material** 20.1.0  
+- **RxJS** 7.8.2  
+- **TypeScript** 5.8.3  
+- **Zone.js** 0.15.1  
 
-```bash
-ng generate component component-name
-```
+### Backend
+- **.NET Framework / .NET Core** (según implementación del backend, recomendado .NET 6+ si es Core)  
+- **SQL Server Express 2019** (versión 15.0.4382.1) o superior  
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Sistema operativo recomendado
+- Windows 10 Home (o superior)  
+- Procesador: 12 cores  
+- Memoria: 8 GB RAM  
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## ⚙️ Instalación y ejecución
 
-To build the project run:
+### 1. Frontend (Angular)
 
-```bash
-ng build
-```
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/VSerra12/eldes-front
+   cd eldes-front
+   ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+2. Instalar dependencias:
+   ```bash
+   npm install
+   ```
 
-## Running unit tests
+3. Ejecutar en modo desarrollo:
+   ```bash
+   ng serve -o
+   ```
+   La aplicación se abrirá en [http://localhost:4200](http://localhost:4200)
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+### 2. Backend (.NET)
 
-## Running end-to-end tests
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/bacarvalho/eldesAPI.git
+   cd eldesAPI
+   ```
 
-For end-to-end (e2e) testing, run:
+2. Restaurar dependencias:
+   ```bash
+   dotnet restore
+   ```
 
-```bash
-ng e2e
-```
+3. Ejecutar la API:
+   ```bash
+   dotnet run
+   ```
+   Por defecto quedará en [http://localhost:5283](http://localhost:5283)
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### 3. Base de Datos (SQL Server)
 
-## Additional Resources
+1. Instalar **SQL Server Express** (si no está instalado).  
+   Versión recomendada: 2019 (15.0.4382.1).
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+2. Restaurar la base de datos:
+   - Abrir **SQL Server Management Studio (SSMS)**.
+   - Conectarse al servidor local
+   - Ejecutar los scripts de creación de tablas y datos iniciales ubicados en la carpeta `/database`.
+
+3. Verificar conexión desde el backend:
+   - Configurar el `ConnectionString` en `appsettings.json` (ejemplo):
+     ```json
+     "ConnectionStrings": {
+       "DefaultConnection": "Server=localhost;Database=ReplicaELdeS;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true"
+     }
+     ```
+
+---
+
+## 📦 Comandos útiles
+
+### Frontend (Angular)
+- **Compilar en modo producción**
+  ```bash
+  ng build --configuration production
+  ```
+
+- **Ejecutar pruebas unitarias**
+  ```bash
+  ng test
+  ```
+
+- **Ejecutar pruebas end-to-end (E2E)**
+  ```bash
+  ng e2e
+  ```
+
+### Backend (.NET)
+- **Compilar**
+  ```bash
+  dotnet build
+  ```
+
+- **Ejecutar**
+  ```bash
+  dotnet run
+  ```
+
+- **Ejecutar pruebas**
+  ```bash
+  dotnet test
+  ```
