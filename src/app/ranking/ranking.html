@@ -17,21 +17,25 @@
       </mat-button-toggle-group>
     </div>
 
-    <h2>Your Current Rank</h2>
+    <h2>Tu puesto actual</h2>
     <div class="rank-box">{{ currentUser()?.rank }}</div>
 
-    <p *ngIf="lessonsToNext !== null && lessonsToNext > 0">
-      You're {{ lessonsToNext }} lesson{{ lessonsToNext === 1 ? '' : 's' }} away
-      from reaching the next rank.
-    </p>
 
-    <p *ngIf="lessonsToNext === 0">
-      You're tied with the next user — complete 1 more lesson to move up!
-    </p>
-
-    <p *ngIf="lessonsToNext === null">
-      You're at the top of the ranking — great job! 🏆
-    </p>
+    <!-- Mensaje según posición -->
+    <ng-container *ngIf="currentUser() as user">
+      <p *ngIf="user.rank === 1">
+        ¡Eres el número 1 del ranking! 🏆 ¡Sigue así!
+      </p>
+      <p *ngIf="user.rank !== 1 && user.rank <= 3">
+        ¡Estás en el top 3! Excelente desempeño.
+      </p>
+      <p *ngIf="user.rank > 3 && user.rank <= 5">
+        ¡Estás entre los 5 mejores! Sigue avanzando para llegar al podio.
+      </p>
+      <p *ngIf="user.rank > 5">
+        Te faltan {{ pointsToFifth }} puntos para alcanzar el puesto 5.
+      </p>
+    </ng-container>
   </div>
 
   <!-- Tabla del Top -->

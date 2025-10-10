@@ -52,3 +52,93 @@
 .nav-active {
   border-bottom: 2px solid #49a04a !important;
 }
+
+/* navbar.css */
+.desktop-navbar {
+  display: flex;
+}
+.mobile-toolbar,
+.mobile-sidenav-container {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .desktop-navbar {
+    display: none;
+  }
+  .mobile-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 56px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+  .mobile-sidenav-container {
+    display: block;
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 56px);
+    z-index: 101;
+    background: rgba(0,0,0,0.1);
+  }
+  .mobile-sidenav-container .sidebar-items {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 32px 18px;
+  }
+  .toolbar-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-left: 12px;
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  .toolbar-left,
+  .toolbar-center,
+  .toolbar-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-eldes {
+    height: 38px;
+    margin-right: 8px;
+  }
+
+  .flag-arg {
+    height: 22px;
+    border-radius: 3px;
+  }
+
+  .logo-utn {
+    height: 28px;
+    margin-right: 8px;
+  }
+
+  .logo-lsa {
+    height: 28px;
+  }
+
+  .toolbar-center {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .toolbar-right button {
+    margin-left: 8px;
+  }
+}
+
+.submenu-cuenta {
+  padding-left: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

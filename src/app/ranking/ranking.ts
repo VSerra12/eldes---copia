@@ -36,7 +36,7 @@ export class Ranking implements OnInit {
   displayedColumns: string[] = ['rank', 'user', 'lessons'];
 
   selectedRanking: 'country' | 'organization' = 'country';
-  userId = 'bb1ec047-cba7-44dc-9924-42f4666f6a57';
+  userId = 'e1d6f577-9d82-4272-b55f-341856748156';
 
   // Signals
   topGlobal = signal<RankingEntry[]>([]);
@@ -68,7 +68,7 @@ export class Ranking implements OnInit {
             res.top5Organization.map((u, index) => ({
               rank: index + 1,
               userName: u.userName,
-              points: res.organizationRanking?.points ?? 0,
+              points: u.points ?? 0,
             }))
           );
           this.hasOrganizationRanking.set(true);
@@ -157,5 +157,15 @@ export class Ranking implements OnInit {
       default:
         return rank;
     }
+  }
+
+  get pointsToFifth(): number {
+    if (!this.currentUser || !this.topUsers) return 0;
+    const fifth = this.topUsers.find(u => u.rank === 5);
+    if (!fifth) return 0;
+    const currentUser = this.currentUser();
+    if (!currentUser) return 0;
+    const diff = fifth.points - currentUser.points;
+    return diff > 0 ? diff : 0;
   }
 }

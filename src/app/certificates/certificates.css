@@ -308,7 +308,7 @@
   object-fit: contain;
 }
 
-/* ===Opciones de compartir=== */   
+/* ===Opciones de compartir=== */
 .share-options {
   margin-top: 1rem;
   text-align: center;
@@ -376,4 +376,161 @@ input {
   border-bottom-right-radius: 12px;
   cursor: pointer;
   border: 1px solid #1976d2;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1200px) {
+  .home-container {
+    min-width: 0;
+    padding: 0 10px;
+  }
+  .certificates-container {
+    flex-direction: column;
+    padding: 2rem 0;
+  }
+  .certificates-list {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  .preview-container {
+    width: 100%;
+    padding: 0;
+  }
+  .certificate-detail-container {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    margin-bottom: 2rem;
+  }
+  .certificate-box {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .certificates-page {
+    padding-left: 0;
+  }
+  .main-container {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+  }
+  .certificates-title {
+    font-size: 16px;
+    margin-bottom: 1rem;
+  }
+  .buttons-list button {
+    font-size: 16px;
+    padding: 10px 12px;
+  }
+  .certificate-detail {
+    padding: 1rem;
+  }
+  .header h1,
+  .header-flex h1 {
+    font-size: 18px;
+    padding: 0.5rem 0;
+  }
+  .header img,
+  .header .watermark-logo {
+    width: 120px;
+    height: auto;
+    padding: 0.5rem;
+  }
+  .signatures {
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .signature-block {
+    width: 100px;
+  }
+  .signature-name {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .certificates-page {
+    padding-left: 0;
+  }
+  .main-container {
+    padding: 0;
+  }
+  .certificates-title {
+    font-size: 14px;
+  }
+  .certificates-list {
+    border-radius: 0;
+    margin-bottom: 1rem;
+  }
+  .courses-completed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .buttons-list {
+    gap: 0.5rem;
+  }
+  .buttons-list button {
+    font-size: 14px;
+    padding: 8px 8px;
+  }
+  .download-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 1rem;
+  }
+  .certificate-detail-container {
+    padding: 0;
+  }
+  .certificate-box {
+    border-radius: 16px;
+    padding: 10px;
+  }
+  .certificate-detail {
+    padding: 0.5rem;
+    border-radius: 12px;
+  }
+  .header h1,
+  .header-flex h1 {
+    font-size: 15px;
+    padding: 0.3rem 0;
+    width: 100%;
+  }
+  .header img,
+  .header .watermark-logo {
+    width: 80px;
+    height: auto;
+    padding: 0.2rem;
+  }
+  .signatures {
+    gap: 0.5rem;
+    margin-top: 1rem;
+    align-items: center;
+  }
+  .signature-block {
+    width: 80px;
+  }
+  .signature-name {
+    font-size: 11px;
+  }
+  .send-email-container {
+    gap: 6px;
+    padding: 1rem 0;
+  }
+  .send-email-container h3 {
+    font-size: 14px;
+  }
+  input,
+  .send-email-container button {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
 }

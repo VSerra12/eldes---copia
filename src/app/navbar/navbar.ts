@@ -5,8 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; // <-- Add this import
-
+import { RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-navbar',
@@ -18,12 +19,16 @@ import { RouterModule } from '@angular/router'; // <-- Add this import
     FormsModule,
     CommonModule,
     RouterModule,
+    MatToolbarModule,
+    MatSidenavModule
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
 export class Navbar {
   ayudaInteligente = false;
+  mobileMenuOpen = false;
+  cuentaExpandida = false; // <--- Agrega esta línea
 
   cerrarSesion() {
     // lógica de logout
@@ -35,5 +40,18 @@ export class Navbar {
       'Ayuda inteligente:',
       this.ayudaInteligente ? 'activada' : 'desactivada'
     );
+  }
+
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  closeMobileMenu() {
+    this.mobileMenuOpen = false;
+  }
+
+  openSettings() {
+    // lógica para abrir ajustes
+    this.closeMobileMenu();
   }
 }

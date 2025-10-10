@@ -67,9 +67,9 @@ export class Api {
     const payload = {
       toEmail: toEmail,
       toName: userName, 
-      fromEmail: 'bautidenueve@gmail.com',
+      fromEmail: 'flormiguez@frba.utn.edu.ar',
       fromName: 'Eldes Notificaciones',
-      templateId: 'd-3905d390a8164a7caa4ca54cb81e520a',
+      templateId: 'd-424dd077952e489098a6be436309c724',
       dynamicTemplateData: {
         user_name: userName,
         course_name: courseName,

@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef, inject, OnInit } from '@angular/core';
-import { DatePipe, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { Api, CompletedCourse } from '../services/api';
+import { DatePipe, CommonModule } from '@angular/common';
 
 interface Certificate {
   title: string;
@@ -40,7 +40,7 @@ export class Certificates implements OnInit {
   certificateBoxRef!: ElementRef;
 
   ngOnInit(): void {
-    const userId = 'bb1ec047-cba7-44dc-9924-42f4666f6a57'; // reemplazar por real
+    const userId = 'e1d6f577-9d82-4272-b55f-341856748156'; // reemplazar por real
     this.api.getCompletedCourses(userId).subscribe({
       next: (courses: CompletedCourse[]) => {
         this.certificates = courses.map(c => ({
@@ -71,7 +71,23 @@ export class Certificates implements OnInit {
     this.activeFormat = format;
 
     const element = this.certificateBoxRef.nativeElement;
-    const canvas = await html2canvas(element, { scale: 2 });
+
+    // Fuerza el tamaño desktop antes de capturar
+    element.style.width = '1000px';
+    element.style.height = '650px';
+
+    // Espera a que el layout se actualice
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+    const canvas = await html2canvas(element, {
+      width: 1000,
+      height: 650,
+      scale: 2
+    });
+
+    // Opcional: restaura el tamaño original si lo modificaste
+    element.style.width = '';
+    element.style.height = '';
 
     const dataURL =
       format === 'jpg'
@@ -82,9 +98,9 @@ export class Certificates implements OnInit {
       const pdf = new jsPDF({
         orientation: 'landscape',
         unit: 'px',
-        format: [canvas.width, canvas.height],
+        format: [1000, 650],
       });
-      pdf.addImage(dataURL, 'PNG', 0, 0, canvas.width, canvas.height);
+      pdf.addImage(dataURL, 'PNG', 0, 0, 1000, 650);
       pdf.save(`${this.selectedCertificate.title}.pdf`);
     } else {
       const link = document.createElement('a');

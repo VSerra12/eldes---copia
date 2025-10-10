@@ -1,5 +1,5 @@
 <nav>
-    <div class="navbar">
+    <div class="navbar desktop-navbar">
         <div class="logo-flag">
             <a routerLink="/">
                 <img src="assets/logo-eldes.png" alt="Logo" class="logo" />
@@ -68,4 +68,58 @@
 
         </div>
     </div>
+
+    <!-- Toolbar responsive -->
+    <mat-toolbar class="mobile-toolbar" color="primary">
+        <div class="toolbar-left">
+            <img src="assets/logo-eldes.png" alt="Logo EldeS" class="logo-eldes">
+            <img src="assets/flag-arg.png" alt="Bandera Argentina" class="flag-arg">
+        </div>
+        <div class="toolbar-center">
+            <img src="assets/logo-utn.png" alt="Logo UTN" class="logo-utn">
+            <img src="assets/logo-lsa.png" alt="Logo LSA" class="logo-lsa">
+        </div>
+        <div class="toolbar-right">
+            <button mat-icon-button (click)="toggleMobileMenu()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <!-- Menú lateral responsive -->
+    <mat-sidenav-container class="mobile-sidenav-container" *ngIf="mobileMenuOpen">
+        <mat-sidenav #sidenav mode="over" position="end" opened>
+            <div class="sidebar-items">
+                <button mat-button [routerLink]="'/'" (click)="closeMobileMenu()">Inicio</button>
+                <button mat-button [routerLink]="'/ranking'" (click)="closeMobileMenu()">Ranking</button>
+                <button mat-button (click)="openSettings()">
+                    <mat-icon>settings</mat-icon> Ajustes
+                </button>
+                <!-- Acordeón Mi cuenta -->
+                <button mat-button (click)="cuentaExpandida = !cuentaExpandida">
+                    <mat-icon>account_circle</mat-icon> Mi cuenta
+                    <mat-icon>
+                      {{ cuentaExpandida ? 'expand_less' : 'expand_more' }}
+                    </mat-icon>
+                </button>
+                <div *ngIf="cuentaExpandida" class="submenu-cuenta">
+                    <button mat-button [routerLink]="'/certificates'" (click)="closeMobileMenu()">
+                        <mat-icon>school</mat-icon>
+                        Mis certificados
+                    </button>
+                    <button mat-button (click)="closeMobileMenu()">
+                        <mat-icon>account_circle</mat-icon>
+                        Mi cuenta
+                    </button>
+                    <button mat-button (click)="closeMobileMenu()">
+                        <mat-icon>help_outline</mat-icon>
+                        Preguntas frecuentes
+                    </button>
+                </div>
+                <button mat-button (click)="cerrarSesion()">
+                    <mat-icon>logout</mat-icon> Cerrar sesión
+                </button>
+            </div>
+        </mat-sidenav>
+    </mat-sidenav-container>
 </nav>

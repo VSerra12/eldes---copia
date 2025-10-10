@@ -21,11 +21,12 @@ section {
 .carousel-container {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   position: relative;
   padding: 20px;
   border-radius: 12px;
-  animation: fadeInUp 0.8s ease; 
+  animation: fadeInUp 0.8s ease;
+  width: 100%;
 }
 
 @keyframes fadeInUp {
@@ -47,6 +48,7 @@ section {
   gap: 20px;
   justify-content: center;
   transition: transform 0.5s ease, opacity 0.5s ease;
+  flex: 1;
 }
 
 /* Continuar aprendiendo (1 fila de 3 cards) */
@@ -64,12 +66,12 @@ section {
   border-radius: 10px;
   overflow: hidden;
   background: #f0f0f0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 /* Loader (spinner centrado) */
@@ -80,7 +82,7 @@ section {
   width: 40px;
   height: 40px;
   margin: -20px 0 0 -20px;
-  border: 3px solid rgba(0,0,0,0.1);
+  border: 3px solid rgba(0, 0, 0, 0.1);
   border-top: 3px solid #ff6400;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -88,7 +90,9 @@ section {
 }
 
 @keyframes spin {
-  100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Imagen */
@@ -121,14 +125,18 @@ section {
   transition: background 0.3s ease;
 }
 .card:hover .card-title {
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 /* Overlay */
 .card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 60%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
   color: #fff;
   padding: 1rem;
   font-size: 0.9rem;
@@ -195,7 +203,7 @@ section {
 }
 .play-btn:hover {
   transform: scale(1.15);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Animaciones de slide */
@@ -221,10 +229,14 @@ section {
   padding: 10px;
   border-radius: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 0 4px;
+  min-width: 44px;
+  min-height: 44px;
+  z-index: 2;
 }
 .arrow:hover {
   transform: scale(1.2);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
 
 /* === TÍTULOS SECCIONES === */
@@ -267,7 +279,6 @@ section {
   padding: 2rem 3rem;
   animation: fadeInUp 1s ease;
 }
-
 
 .recommend-header {
   display: flex;
@@ -444,4 +455,167 @@ section {
   border-radius: 8px;
   font-size: 0.8rem;
   background: rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .home-container {
+    min-width: 0;
+  }
+  section {
+    padding: 0 12px;
+  }
+  .grid-container,
+  .continue-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 180px;
+    gap: 24px;
+    justify-content: center;
+  }
+  .recommend-cards-row {
+    gap: 24px;
+    justify-content: center;
+  }
+  .recommend-card {
+    width: 45%;
+    min-width: 180px;
+    padding: 1.2rem 0.8rem;
+    margin: 0 auto;
+  }
+}
+
+/* === 900px y menos — ahora se ve igual que en 600px === */
+@media (max-width: 900px) {
+  .carousel-container {
+    flex-direction: column;
+    padding: 8px;
+    gap: 18px;
+    padding-top: 12px;
+  }
+
+  /* NOVEDADES: se comporta como slide horizontal */
+  .grid-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 12px;
+    justify-content: flex-start;
+    width: 100%;
+    padding-bottom: 12px;
+    scroll-padding-left: 8px;
+    padding-top: 15px;
+  }
+
+  .grid-container .card {
+    min-width: 90vw;
+    max-width: 95vw;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    height: 180px;
+  }
+
+  .grid-container::-webkit-scrollbar {
+    height: 6px;
+    background: #f5f7fa;
+  }
+  .grid-container::-webkit-scrollbar-thumb {
+    background: #ff812e;
+    border-radius: 3px;
+  }
+
+  .carousel-container .arrow {
+    display: none;
+  }
+
+  /* CONTINUAR APRENDIENDO — igual que mobile */
+  .continue-grid-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+    scroll-snap-type: x mandatory;
+    padding-top: 12px;
+    scroll-padding-left: 8px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .see-all-link {
+    text-align: end;
+  }
+
+  .continue-grid-container .card {
+    min-width: 180px;
+    max-width: 220px;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    height: 110px;
+  }
+
+  .recommend-section {
+    padding: 0 4px;
+  }
+
+  .recommend-cards-row {
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    padding: 0 2rem;
+  }
+
+  .recommend-card {
+    width: 90%;
+    min-width: 0;
+    padding: 1rem 0.6rem;
+    margin: 0 auto;
+  }
+
+  .news-title,
+  .keep-learning-title,
+  .recommend-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.7rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-container {
+    min-width: 0;
+    width: 100%;
+    overflow-x: visible;
+  }
+  section {
+    padding: 0 4px;
+  }
+  .carousel-container {
+    padding: 2px;
+    gap: 12px;
+  }
+  /* “Novedades” ya igual que en 900 */
+  .grid-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 12px;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .grid-container .card {
+    min-width: 90vw;
+    max-width: 95vw;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    height: 180px;
+  }
+  .carousel-container .arrow {
+    display: none;
+  }
+  .recommend-card {
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.98rem;
+    margin: 0;
+  }
 }

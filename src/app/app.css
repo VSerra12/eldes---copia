@@ -3,11 +3,18 @@
   color: black;
   padding: 16px 50px;
   font-weight: 500;
-  border-top: 2px solid #e7e7e7 ;
+  border-top: 2px solid #e7e7e7;
 }
 
 .page-title h1 {
   margin: 0;
   font-size: 20px;
   text-align: left;
+}
+
+@media (max-width: 900px) {
+  .page-title {
+    margin-top: 56px;
+  }
+
 }
